@@ -1,0 +1,132 @@
+1----------------
+一
+Uno
+Una riga lol
+2
+いち
+一
+uno
+ひとり
+一人
+una persona
+2----------------
+二
+Due
+Eh, due righe
+2
+に
+二
+due
+ふたり
+二人
+due persone
+3----------------
+三
+Tre
+Tre righe!!!
+2
+さん
+三
+tre
+さんにん
+三人
+tre persone
+4----------------
+四
+Quattro
+Apri le tende della finestra alle quattro
+2
+し
+四
+quattro
+よんにん
+四人
+quattro persone
+5----------------
+五
+Cinque
+Sembra un po' un cinque 5, no?
+2
+ご
+五
+cinque
+いつつ
+五つ
+cinque (contatore)
+6----------------
+六
+Sei
+Il diavolo ha un cappello 亠 e gambe d'animale ハ (666)
+2
+ろく
+六
+sei
+むいか
+六日
+sei giorni
+7----------------
+七
+Sette
+Un 7 rovesciato
+2
+なな
+七
+sette
+しちじ
+七時
+le ore 7:00
+8----------------
+八
+Otto
+Uno dei vulcani delle 8 eruzioni della storia
+2
+はち
+八
+otto
+やっつ
+八つ
+otto (contatore)
+9----------------
+九
+Nove
+Una N che sta per Nove
+2
+きゅう
+九
+nove
+くじ
+九時
+Le ore 9:00
+10----------------
+十
+Dieci
+La T di Ten
+2
+じゅう
+十
+Dieci
+とおか
+十日
+Dieci giorni
+11----------------
+口
+Bocca
+Una bocca quadrata
+2
+く
+口
+bocca
+やまぐち
+山口
+Yamaguchi, cognome
+786----------------
+乳
+Latte
+Con le unghie 爪 i bambini 子 si attaccano乚 al biberon
+2
+ぎゅうにゅう
+牛乳
+latte vaccino
+ぼにゅう
+母乳
+latte materno
