@@ -41,6 +41,9 @@ class MainActivity : ComponentActivity() {
         val split = kanjis.split("\n")
         for (i in 0..split.size) {
             try {
+                if (!split[i].contains("-----")) {
+                    continue
+                }
                 val id = split[i].replace("-", "").toInt()
                 val kanji = split[i + 1]
                 val meaning = split[i + 2]
@@ -59,6 +62,8 @@ class MainActivity : ComponentActivity() {
         }
 
         kanjiList = list.toList()
+
+        Log.e("KanjiTrainerITA", "Kanji list size: ${kanjiList.size}")
 
         nextKanji()
 
