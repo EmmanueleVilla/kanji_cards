@@ -11,11 +11,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.lifecycleScope
 import com.shadowings.kanjitrainerita.ui.theme.KanjiTrainerITATheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
     private var kanjiList: List<KanjiInfo> by mutableStateOf(listOf())
+    private var currentKanji: KanjiInfo? by mutableStateOf(null)
+
+    private fun nextKanji() {
+        lifecycleScope.launch {
+            currentKanji = null
+            delay(250)
+            currentKanji = kanjiList.random()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +39,7 @@ class MainActivity : ComponentActivity() {
         val list: MutableList<KanjiInfo> = mutableListOf()
 
         val split = kanjis.split("\n")
-        for(i in 0..split.size) {
+        for (i in 0..split.size) {
             try {
                 val id = split[i].replace("-", "").toInt()
                 val kanji = split[i + 1]
@@ -48,13 +60,15 @@ class MainActivity : ComponentActivity() {
 
         kanjiList = list.toList()
 
+        nextKanji()
+
         setContent {
             KanjiTrainerITATheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    KanjiCard(kanjiList)
+                    KanjiCard(currentKanji, ::nextKanji)
                 }
             }
         }
