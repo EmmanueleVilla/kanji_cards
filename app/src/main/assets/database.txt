@@ -188,6 +188,36 @@ tu (maschio)
 ごじん
 吾人
 noi
+39-----------------
+中
+Dentro, centro
+Una linea che divide il centro
+1
+なかやま
+中山
+Nakayama, cognome
+224----------------
+本
+Libro
+Un albero tagliato
+2
+ほん
+本
+libro
+おおもと
+大本
+fonte, origine
+830----------------
+山
+Montagna
+Letteralmente una montagna
+2
+やま
+山
+montagna
+ふじさん
+富士山
+Monte Fuji
 786----------------
 乳
 Latte
@@ -199,3 +229,14 @@ latte vaccino
 ぼにゅう
 母乳
 latte materno
+968----------------
+私
+Io
+Questo grano 禾 è privato ㄙ
+2
+わたし
+私
+io
+しりつ
+私立
+privato (scuola)
