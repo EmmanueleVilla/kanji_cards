@@ -119,6 +119,75 @@ bocca
 やまぐち
 山口
 Yamaguchi, cognome
+12----------------
+日
+Giorno
+Una finestra sul giorno
+3
+ひ
+日
+giorno
+にちようび
+日曜日
+domenica
+あさって
+明後日
+dopodomani
+13----------------
+月
+Mese, Luna
+日 con le gambe perchè un mese dura di più
+2
+つき
+月
+luna
+げつようび
+月曜日
+lunedì
+14----------------
+田
+Risaia
+Un campo di riso diviso in quadranti
+2
+たなか
+田中
+Tanaka, cognome
+すいでん
+水田
+risaia allagata
+15----------------
+目
+Occhio
+目_目
+2
+め
+目
+occhio
+もくてき
+目的
+scopo, obiettivo
+16-----------------
+古
+Vecchio
+Una tomba con una croce
+2
+ふるい
+古い
+vecchio
+こてん
+古典
+classico
+17----------------
+吾
+Io
+Io esisto attraverso la finestra 口 dei miei cinque 五 sensi
+2
+あせ
+吾兄
+tu (maschio)
+ごじん
+吾人
+noi
 786----------------
 乳
 Latte
