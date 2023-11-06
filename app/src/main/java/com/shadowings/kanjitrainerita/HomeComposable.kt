@@ -238,14 +238,11 @@ fun HomeComposable(kanjis: List<KanjiInfo>) {
         }
         if (openAlertDialog.value) {
             StudyDialog(
+                kanjis = kanjis,
                 onDismissRequest = { openAlertDialog.value = false },
                 onConfirmation = {
                     openAlertDialog.value = false
-                    println("Confirmation registered") // Add logic here to handle confirmation.
                 },
-                dialogTitle = "Alert dialog example",
-                dialogText = "This is an example of an alert dialog with buttons.",
-                icon = Icons.Default.Info
             )
         }
     }
