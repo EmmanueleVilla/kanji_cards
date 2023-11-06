@@ -7,5 +7,6 @@ data class KanjiInfo(
     val meaning: String,
     val story: String,
     val words: List<WordInfo> = listOf(),
-    val seenCount: Int
+    val seenCount: Int,
+    val searchString: String = "$kanji $meaning ${words.joinToString { it.kana + it.kanji + it.meaning }}"
 )
