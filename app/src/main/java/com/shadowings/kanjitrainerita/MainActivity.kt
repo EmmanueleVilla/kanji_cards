@@ -11,61 +11,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.shadowings.kanjitrainerita.ui.theme.KanjiTrainerITATheme
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+
 
 class MainActivity : ComponentActivity() {
 
     private var kanjiList: List<KanjiInfo> by mutableStateOf(listOf())
     private var currentKanji: KanjiInfo? by mutableStateOf(null)
 
-    private fun nextKanji() {
-        lifecycleScope.launch {
-            currentKanji = null
-            delay(250)
-            currentKanji = kanjiList.random()
-        }
+    private val viewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val kanjis = assets.open("database.txt").bufferedReader().use {
-            it.readText()
+        viewModel.kanjiLiveData.observeForever {
+            kanjiList = it
+            Log.e("KanjiTrainerITA", "Kanji list size: ${kanjiList.size}")
         }
 
-        val list: MutableList<KanjiInfo> = mutableListOf()
-
-        val split = kanjis.split("\n")
-        for (i in 0..split.size) {
-            try {
-                if (!split[i].contains("-----")) {
-                    continue
-                }
-                val id = split[i].replace("-", "").toInt()
-                val kanji = split[i + 1]
-                val meaning = split[i + 2]
-                val story = split[i + 3]
-                val words = mutableListOf<WordInfo>()
-                for (j in 0 until split[i + 4].toInt()) {
-                    val kana = split[i + 5 + j * 3]
-                    val kanji = split[i + 6 + j * 3]
-                    val meaning = split[i + 7 + j * 3]
-                    words.add(WordInfo(kana, kanji, meaning))
-                }
-                list.add(KanjiInfo(id, kanji, meaning, story, words))
-            } catch (e: Exception) {
-                Log.e("KanjiTrainerITA", "Error parsing kanji: ${e}")
-            }
+        viewModel.currentKanji.observeForever {
+            currentKanji = it
         }
-
-        kanjiList = list.toList()
-
-        Log.e("KanjiTrainerITA", "Kanji list size: ${kanjiList.size}")
-
-        nextKanji()
 
         setContent {
             KanjiTrainerITATheme {
@@ -73,7 +42,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    KanjiCard(currentKanji, ::nextKanji)
+                    MainComposable(
+                        kanjiList,
+                        currentKanji,
+                        viewModel::nextKanji
+                    )
                 }
             }
         }

@@ -44,6 +44,8 @@ fun KanjiCardPreview() {
         ) {
             KanjiCard(
                 KanjiInfo(
+                    id = 0,
+                    jlptLevel = 5,
                     kanji = "乳",
                     meaning = "Latte",
                     story = "Con le unghie 爪 i bambini 子 si attaccano乚 al biberon ",
@@ -58,7 +60,8 @@ fun KanjiCardPreview() {
                             kanji = "母乳",
                             meaning = "latte materno"
                         ),
-                    )
+                    ),
+                    seenCount = 0
                 ),
                 {}
             )
