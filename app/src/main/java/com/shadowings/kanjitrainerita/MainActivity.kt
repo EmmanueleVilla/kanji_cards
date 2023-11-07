@@ -18,7 +18,6 @@ import com.shadowings.kanjitrainerita.ui.theme.KanjiTrainerITATheme
 class MainActivity : ComponentActivity() {
 
     private var kanjiList: List<KanjiInfo> by mutableStateOf(listOf())
-    private var currentKanji: KanjiInfo? by mutableStateOf(null)
 
     private val viewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
@@ -32,10 +31,6 @@ class MainActivity : ComponentActivity() {
             Log.e("KanjiTrainerITA", "Kanji list size: ${kanjiList.size}")
         }
 
-        viewModel.currentKanji.observeForever {
-            currentKanji = it
-        }
-
         setContent {
             KanjiTrainerITATheme {
                 Surface(
@@ -43,9 +38,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MainComposable(
-                        kanjiList,
-                        currentKanji,
-                        viewModel::nextKanji
+                        kanjiList
                     )
                 }
             }

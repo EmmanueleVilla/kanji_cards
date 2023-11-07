@@ -7,14 +7,15 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun MainComposable(
-    kanjis: List<KanjiInfo>,
-    currentKanji: KanjiInfo?,
-    nextKanji: () -> Unit
+    kanjis: List<KanjiInfo>
 ) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeComposable(kanjis)
+        }
+        composable("training") {
+            TrainingComposable(kanjis)
         }
     }
 }

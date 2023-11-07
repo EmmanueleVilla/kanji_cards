@@ -5,13 +5,11 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val kanjiLiveData: MutableLiveData<List<KanjiInfo>> = MutableLiveData(listOf())
-    val currentKanji = MutableLiveData<KanjiInfo?>(null)
 
     private val fullKanjiList: MutableLiveData<List<KanjiInfo>> = MutableLiveData(listOf())
 
@@ -70,16 +68,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
             kanjiLiveData.value = list.toList()
             fullKanjiList.value = list.toList()
-            nextKanji()
-        }
-    }
-
-    fun nextKanji() {
-        viewModelScope.launch {
-            currentKanji.value = null
-            delay(250)
-            currentKanji.value =
-                kanjiLiveData.value?.sortedBy { it.happiness }?.subList(0, 10)?.random()
         }
     }
 }
