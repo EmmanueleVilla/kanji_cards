@@ -37,6 +37,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 
 @Preview
@@ -64,13 +66,14 @@ fun HomeComposablePreview() {
                 ),
                 happiness = 0
             )
-        }
+        },
+        navController = rememberNavController()
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeComposable(kanjis: List<KanjiInfo>) {
+fun HomeComposable(kanjis: List<KanjiInfo>, navController: NavHostController) {
 
     val openAlertDialog = remember { mutableStateOf(false) }
 
@@ -234,6 +237,7 @@ fun HomeComposable(kanjis: List<KanjiInfo>) {
                 onDismissRequest = { openAlertDialog.value = false },
                 onConfirmation = {
                     openAlertDialog.value = false
+                    navController.navigate("training")
                 },
             )
         }

@@ -31,6 +31,8 @@ class MainActivity : ComponentActivity() {
             Log.e("KanjiTrainerITA", "Kanji list size: ${kanjiList.size}")
         }
 
+        setTheme(R.style.Theme_KanjiTrainerITA)
+
         setContent {
             KanjiTrainerITATheme {
                 Surface(

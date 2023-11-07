@@ -12,10 +12,10 @@ fun MainComposable(
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            HomeComposable(kanjis)
+            HomeComposable(kanjis, navController)
         }
         composable("training") {
-            TrainingComposable(kanjis)
+            TrainingComposable(kanjis, navController)
         }
     }
 }
