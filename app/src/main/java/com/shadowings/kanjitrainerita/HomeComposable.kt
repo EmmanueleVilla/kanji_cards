@@ -33,7 +33,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,7 +43,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeComposablePreview() {
     HomeComposable(
-        kanjis = listOf(
+        kanjis = List(50) {
             KanjiInfo(
                 id = 0,
                 jlptLevel = 5,
@@ -63,20 +62,13 @@ fun HomeComposablePreview() {
                         meaning = "latte materno"
                     ),
                 ),
-                seenCount = 0
-
+                happiness = 0
             )
-        )
+        }
     )
 }
 
-enum class SortedBy {
-    Id,
-    Jlpt,
-    Hot
-}
-
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeComposable(kanjis: List<KanjiInfo>) {
 
@@ -164,8 +156,8 @@ fun HomeComposable(kanjis: List<KanjiInfo>) {
                             IconButton(onClick = {
                                 sortedBy = when (sortedBy) {
                                     SortedBy.Id -> SortedBy.Jlpt
-                                    SortedBy.Jlpt -> SortedBy.Hot
-                                    SortedBy.Hot -> SortedBy.Id
+                                    SortedBy.Jlpt -> SortedBy.Mood
+                                    SortedBy.Mood -> SortedBy.Id
                                 }
                                 scope.launch {
                                     snackbarHostState.currentSnackbarData?.dismiss()
@@ -175,7 +167,7 @@ fun HomeComposable(kanjis: List<KanjiInfo>) {
                                                 when (sortedBy) {
                                                     SortedBy.Id -> "id"
                                                     SortedBy.Jlpt -> "livello jlpt"
-                                                    SortedBy.Hot -> "difficoltà"
+                                                    SortedBy.Mood -> "difficoltà"
                                                 }
                                             }",
                                         )
@@ -187,7 +179,7 @@ fun HomeComposable(kanjis: List<KanjiInfo>) {
                                         when (sortedBy) {
                                             SortedBy.Id -> R.drawable.ic_sort_id
                                             SortedBy.Jlpt -> R.drawable.ic_sort_n
-                                            SortedBy.Hot -> R.drawable.ic_sort_hot
+                                            SortedBy.Mood -> R.drawable.ic_sort_mood
                                         }
                                     ),
                                     contentDescription = "Localized description",

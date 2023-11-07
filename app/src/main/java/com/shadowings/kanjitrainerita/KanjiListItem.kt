@@ -44,7 +44,7 @@ fun KanjiListItemPreview() {
                         meaning = "latte materno"
                     ),
                 ),
-                seenCount = 0
+                happiness = 0
 
             )
         )
@@ -84,13 +84,6 @@ fun KanjiListItem(kanji: KanjiInfo) {
                     modifier = Modifier.fillMaxWidth(),
                     text = "N${kanji.jlptLevel}",
                     fontSize = 20.sp,
-                    textAlign = TextAlign.End
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Visto ${kanji.seenCount} volte",
-                    fontSize = 14.sp,
                     textAlign = TextAlign.End
                 )
             }

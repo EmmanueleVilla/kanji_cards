@@ -1,7 +1,6 @@
 package com.shadowings.kanjitrainerita
 
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -23,7 +22,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             val list: MutableList<KanjiInfo> = mutableListOf()
-            val prefs = application.getSharedPreferences("kanji", MODE_PRIVATE)
+            val prefManager = PreferencesManager(application)
 
             val rows = kanjis.split("\n").drop(1)
             for (row in rows) {
@@ -53,7 +52,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         val wordMeaning = columns[13]
                         words.add(WordInfo(wordKana, wordKanji, wordMeaning))
                     }
-                    val seenCount = prefs.getInt(id.toString(), 0)
+                    val happiness = prefManager.getInt(id.toString(), 0)
                     list.add(
                         KanjiInfo(
                             id = id,
@@ -62,7 +61,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             meaning = meaning,
                             story = story,
                             words = words,
-                            seenCount = seenCount
+                            happiness = happiness
                         )
                     )
                 } catch (e: Exception) {
@@ -80,7 +79,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             currentKanji.value = null
             delay(250)
             currentKanji.value =
-                kanjiLiveData.value?.sortedBy { it.seenCount }?.subList(0, 10)?.random()
+                kanjiLiveData.value?.sortedBy { it.happiness }?.subList(0, 10)?.random()
         }
     }
 }

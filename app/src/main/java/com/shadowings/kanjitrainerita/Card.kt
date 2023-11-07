@@ -1,7 +1,6 @@
 package com.shadowings.kanjitrainerita
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,14 +12,18 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.PlayArrow
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -61,7 +65,7 @@ fun KanjiCardPreview() {
                             meaning = "latte materno"
                         ),
                     ),
-                    seenCount = 0
+                    happiness = 0
                 ),
                 {}
             )
@@ -69,20 +73,74 @@ fun KanjiCardPreview() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KanjiCard(kanjiInfo: KanjiInfo?, nextKanji: () -> Unit) {
+fun KanjiCard(info: KanjiInfo, nextKanji: () -> Unit) {
+    var showHint by remember { mutableStateOf(false) }
     var showAnswer by remember { mutableStateOf(false) }
 
-    kanjiInfo?.let { info ->
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "Kanji Trainer ITA")
+                },
+                navigationIcon = {
+                    Row(Modifier.padding(start = 12.dp)) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                }
+            )
+        },
+        bottomBar = {
+            BottomAppBar(
+                actions = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        IconButton(onClick = {
+
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_fav_empty),
+                                contentDescription = "Favourite"
+                            )
+                        }
+
+                        IconButton(onClick = {
+                            showHint = true
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_hint),
+                                contentDescription = "Hint"
+                            )
+                        }
+
+                        IconButton(onClick = {
+                            showAnswer = true
+                        }) {
+                            Icon(
+                                Icons.Default.Done,
+                                contentDescription = "Done"
+                            )
+                        }
+                    }
+                })
+        }
+    ) { paddingValues ->
         Column(
             Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .padding(
+                    bottom = paddingValues.calculateBottomPadding(),
+                    top = paddingValues.calculateTopPadding(),
+                    start = 16.dp,
+                    end = 16.dp
+                )
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Card(Modifier.size(300.dp)) {
+            ElevatedCard(Modifier.size(300.dp)) {
                 Text(
                     modifier = Modifier.fillMaxSize(),
                     text = info.kanji,
@@ -90,25 +148,10 @@ fun KanjiCard(kanjiInfo: KanjiInfo?, nextKanji: () -> Unit) {
                     textAlign = TextAlign.Center
                 )
             }
-            if (!showAnswer) {
-                Spacer(modifier = Modifier.size(16.dp))
-                Button(onClick = {
-                    showAnswer = true
-                }) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Icon(
-                            Icons.Rounded.PlayArrow,
-                            contentDescription = "icona-bottone-soluzione"
-                        )
-                        Text(text = "Mostra Soluzione")
-                    }
-                }
-            } else {
-                Spacer(modifier = Modifier.size(16.dp))
-                Card(Modifier.width(300.dp)) {
+
+            Spacer(modifier = Modifier.size(16.dp))
+            AnimatedVisibility(visible = showHint || showAnswer) {
+                ElevatedCard(Modifier.width(300.dp)) {
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -126,76 +169,60 @@ fun KanjiCard(kanjiInfo: KanjiInfo?, nextKanji: () -> Unit) {
                         textAlign = TextAlign.Center
                     )
                 }
+            }
 
-                Spacer(modifier = Modifier.size(16.dp))
-                Card(Modifier.width(300.dp)) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp, bottom = 4.dp, start = 8.dp, end = 8.dp),
-                        text = "STORIA",
-                        fontSize = 14.sp,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 4.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
-                        text = info.story,
-                        fontSize = 22.sp,
-                        textAlign = TextAlign.Center
-                    )
-                }
-                Spacer(modifier = Modifier.size(16.dp))
-                Card(Modifier.width(300.dp)) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp, bottom = 4.dp, start = 8.dp, end = 8.dp),
-                        text = "PAROLE",
-                        fontSize = 14.sp,
-                        textAlign = TextAlign.Center
-                    )
-                    info.words.forEach {
+            AnimatedVisibility(visible = showHint) {
+                Column {
+                    Spacer(modifier = Modifier.size(16.dp))
+                    ElevatedCard(Modifier.width(300.dp)) {
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 8.dp, bottom = 0.dp, start = 8.dp, end = 8.dp),
-                            text = it.kana,
-                            fontSize = 16.sp,
+                                .padding(top = 8.dp, bottom = 4.dp, start = 8.dp, end = 8.dp),
+                            text = "STORIA",
+                            fontSize = 14.sp,
                             textAlign = TextAlign.Center
                         )
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 0.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
-                            text = "${it.kanji} (${it.meaning})",
+                                .padding(top = 4.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
+                            text = info.story,
                             fontSize = 22.sp,
                             textAlign = TextAlign.Center
                         )
                     }
-                }
-                Spacer(modifier = Modifier.size(16.dp))
-                Button(onClick = {
-                    nextKanji()
-                    showAnswer = false
-                }) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Icon(
-                            Icons.Rounded.PlayArrow,
-                            contentDescription = "icona-bottone-prossima"
+                    Spacer(modifier = Modifier.size(16.dp))
+                    ElevatedCard(Modifier.width(300.dp)) {
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 8.dp, bottom = 4.dp, start = 8.dp, end = 8.dp),
+                            text = "PAROLE",
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Center
                         )
-                        Text(text = "Prossima Carta")
+                        info.words.forEach {
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 8.dp, bottom = 0.dp, start = 8.dp, end = 8.dp),
+                                text = it.kana,
+                                fontSize = 16.sp,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 0.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
+                                text = "${it.kanji} (${it.meaning})",
+                                fontSize = 22.sp,
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
                 }
             }
-        }
-    } ?: run {
-        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator()
         }
     }
 }
