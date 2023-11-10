@@ -39,7 +39,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.launch
 
 @Preview
 @Composable
@@ -80,10 +79,19 @@ fun HomeComposable(kanjis: List<KanjiInfo>, navController: NavHostController) {
     var searching by rememberSaveable { mutableStateOf(false) }
     var query by rememberSaveable { mutableStateOf("") }
     var active by rememberSaveable { mutableStateOf(false) }
-    var sortedBy by rememberSaveable { mutableStateOf(SortedBy.Id) }
+    var sortedBy by rememberSaveable { mutableStateOf(SortedBy.IdAsc) }
 
     var filteredList = kanjis.filter { kanji ->
         kanji.searchString.contains(query, ignoreCase = true)
+    }.sortedBy {
+        when (sortedBy) {
+            SortedBy.IdAsc -> it.id
+            SortedBy.IdDesc -> -it.id
+            SortedBy.JlptAsc -> it.jlptLevel
+            SortedBy.JlptDesc -> -it.jlptLevel
+            SortedBy.MoodAsc -> it.happiness
+            SortedBy.MoodDesc -> -it.happiness
+        }
     }
 
     val scope = rememberCoroutineScope()
@@ -158,31 +166,24 @@ fun HomeComposable(kanjis: List<KanjiInfo>, navController: NavHostController) {
                             }
                             IconButton(onClick = {
                                 sortedBy = when (sortedBy) {
-                                    SortedBy.Id -> SortedBy.Jlpt
-                                    SortedBy.Jlpt -> SortedBy.Mood
-                                    SortedBy.Mood -> SortedBy.Id
-                                }
-                                scope.launch {
-                                    snackbarHostState.currentSnackbarData?.dismiss()
-                                    snackbarHostState
-                                        .showSnackbar(
-                                            message = "Ordinato per ${
-                                                when (sortedBy) {
-                                                    SortedBy.Id -> "id"
-                                                    SortedBy.Jlpt -> "livello jlpt"
-                                                    SortedBy.Mood -> "difficoltà"
-                                                }
-                                            }",
-                                        )
+                                    SortedBy.IdAsc -> SortedBy.IdDesc
+                                    SortedBy.IdDesc -> SortedBy.JlptAsc
+                                    SortedBy.JlptAsc -> SortedBy.JlptDesc
+                                    SortedBy.JlptDesc -> SortedBy.MoodAsc
+                                    SortedBy.MoodAsc -> SortedBy.MoodDesc
+                                    SortedBy.MoodDesc -> SortedBy.IdAsc
                                 }
                             }) {
                                 Icon(
                                     painter = painterResource(
                                         id =
                                         when (sortedBy) {
-                                            SortedBy.Id -> R.drawable.ic_sort_id
-                                            SortedBy.Jlpt -> R.drawable.ic_sort_n
-                                            SortedBy.Mood -> R.drawable.ic_sort_mood
+                                            SortedBy.IdAsc -> R.drawable.ic_sort_id_asc
+                                            SortedBy.IdDesc -> R.drawable.ic_sort_id_desc
+                                            SortedBy.JlptAsc -> R.drawable.ic_sort_jlpt_asc
+                                            SortedBy.JlptDesc -> R.drawable.ic_sort_jlpt_desc
+                                            SortedBy.MoodAsc -> R.drawable.ic_sort_smile_asc
+                                            SortedBy.MoodDesc -> R.drawable.ic_sort_smile_desc
                                         }
                                     ),
                                     contentDescription = "Localized description",

@@ -71,7 +71,6 @@ fun KanjiCard(
     Column(
         Modifier
             .fillMaxSize()
-            .padding(16.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -137,7 +136,7 @@ fun KanjiCard(
                         fontSize = 14.sp,
                         textAlign = TextAlign.Center
                     )
-                    info.words.forEach {
+                    info.words.filter { it.kanji.isNotEmpty() }.forEach {
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -156,6 +155,7 @@ fun KanjiCard(
                         )
                     }
                 }
+                Spacer(modifier = Modifier.size(16.dp))
             }
         }
     }

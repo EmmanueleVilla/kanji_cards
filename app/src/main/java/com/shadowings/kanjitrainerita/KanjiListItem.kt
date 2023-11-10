@@ -1,5 +1,6 @@
 package com.shadowings.kanjitrainerita
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
@@ -78,13 +80,26 @@ fun KanjiListItem(kanji: KanjiInfo) {
                 modifier = Modifier
                     .weight(3f)
                     .padding(start = 16.dp),
-                verticalArrangement = Arrangement.SpaceEvenly
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.End
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "N${kanji.jlptLevel}",
                     fontSize = 20.sp,
                     textAlign = TextAlign.End
+                )
+                Image(
+                    painter = painterResource(
+                        id =
+                        when {
+                            kanji.happiness < -1 -> R.drawable.ic_smile_very_dissatisfied
+                            kanji.happiness == -1 -> R.drawable.ic_smile_dissatisfied
+                            kanji.happiness == 0 -> R.drawable.ic_smile_neutral
+                            kanji.happiness == 1 -> R.drawable.ic_smile_satisfied
+                            else -> R.drawable.ic_smile_excited
+                        }
+                    ), contentDescription = "smile"
                 )
             }
         }

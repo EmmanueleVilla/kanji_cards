@@ -48,7 +48,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
     LaunchedEffect(Unit) {
         val list = preferencesManager.getKanjiIds(listOf())
         subList = kanjiList.filter { list.contains(it.id) }
-        currentKanji = subList.sortedBy { it.happiness }.take(5).random()
+        currentKanji = subList.random()
         Log.e("KanjiList", subList.toString())
     }
 
@@ -66,43 +66,119 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
             )
         },
         bottomBar = {
-            if (currentKanji != null && mode.value == TrainingMode.Card) {
-                if (!showAnswer) {
-                    BottomAppBar(
-                        actions = {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                IconButton(onClick = {
+            currentKanji?.let { info ->
+                if (mode.value == TrainingMode.Card) {
+                    if (!showAnswer) {
+                        BottomAppBar(
+                            actions = {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    IconButton(onClick = { }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_fav_empty),
+                                            contentDescription = "Favourite"
+                                        )
+                                    }
 
-                                }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_fav_empty),
-                                        contentDescription = "Favourite"
-                                    )
+                                    IconButton(
+                                        enabled = !showHint,
+                                        onClick = { showHint = true }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_hint),
+                                            contentDescription = "Hint"
+                                        )
+                                    }
+
+                                    IconButton(onClick = { showAnswer = true }) {
+                                        Icon(
+                                            Icons.Default.Done,
+                                            contentDescription = "Done"
+                                        )
+                                    }
                                 }
-
-                                IconButton(onClick = {
-                                    showHint = true
-                                }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_hint),
-                                        contentDescription = "Hint"
-                                    )
-                                }
-
-                                IconButton(onClick = {
-                                    showAnswer = true
-                                }) {
-                                    Icon(
-                                        Icons.Default.Done,
-                                        contentDescription = "Done"
-                                    )
+                            })
+                    } else {
+                        BottomAppBar(
+                            actions = {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    IconButton(onClick = {
+                                        preferencesManager.putInt(
+                                            "${info.id}",
+                                            minOf(-5, info.happiness - 2)
+                                        )
+                                        currentKanji = subList.random()
+                                        showAnswer = false
+                                        showHint = false
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_very_dissatisfied),
+                                            contentDescription = "very dissatisfied"
+                                        )
+                                    }
+                                    IconButton(onClick = {
+                                        preferencesManager.putInt(
+                                            "${info.id}",
+                                            minOf(-5, info.happiness - 1)
+                                        )
+                                        currentKanji = subList.random()
+                                        showAnswer = false
+                                        showHint = false
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_dissatisfied),
+                                            contentDescription = "dissatisfied"
+                                        )
+                                    }
+                                    IconButton(onClick = {
+                                        currentKanji = subList.random()
+                                        showAnswer = false
+                                        showHint = false
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_neutral),
+                                            contentDescription = "neutral"
+                                        )
+                                    }
+                                    IconButton(onClick = {
+                                        preferencesManager.putInt(
+                                            "${info.id}",
+                                            maxOf(5, info.happiness + 1)
+                                        )
+                                        currentKanji = subList.random()
+                                        showAnswer = false
+                                        showHint = false
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_satisfied),
+                                            contentDescription = "satisfied"
+                                        )
+                                    }
+                                    IconButton(
+                                        enabled = !showHint,
+                                        onClick = {
+                                            preferencesManager.putInt(
+                                                "${info.id}",
+                                                maxOf(5, info.happiness + 2)
+                                            )
+                                            currentKanji = subList.random()
+                                            showAnswer = false
+                                            showHint = false
+                                        }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_excited),
+                                            contentDescription = "excited"
+                                        )
+                                    }
                                 }
                             }
-                        })
+                        )
+                    }
                 }
             }
+
         }
     ) { paddingValues ->
         Box(

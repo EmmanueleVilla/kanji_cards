@@ -35,14 +35,14 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 173	5	火	fuoco	Un *fuoco* che arde	か	火	fuoco	はなび	花火	fuochi d'artificio	かようび	火曜日	martedì
 183	4	魚	pesce	Catturi 勹 un *pesce*, raccogli il riso 田 e lo cuoci 灬	さかな	魚	pesce	かわうお	川魚	pesce di fiume			
 218	5	椅	sedia	Con un albero 木 grande 大 puoi 可 fare una *sedia*	いす	椅子	sedia						
-223	２	机	scrivania	Con un albero 木 fai una *scrivania* 几	つくえ	机	scrivania						
+223	2	机	scrivania	Con un albero 木 fai una *scrivania* 几	つくえ	机	scrivania						
 224	5	本	Libro	Un albero tagliato per fare un *libro*	ほん	本	libro	おおもと	大本	fonte	origine		
 229	3	未	Non ancora	In serra 亠 c'è un piccolo albero 木 *non ancora* cresciuto	み	未	non ancora (yet)	まだ	未だ	ancora (still)			
 253	4	犬	cane	Il *cane* è un grande 大 amico a cui lanci un bastone 丶	いぬ	犬	cane	こいぬ	子犬	cucciolo di cane			
 259	3	猫	gatto	Il gatto è inseguito dal cane犭 sull'erba 艹 dei prati 田	ねこ	猫	gatto	こねこ	子猫	cucciolo di gatto			
 260	4	牛	Mucca	Corno 丿 Zampe 二 Corpo |: *mucca*	うし	牛	Mucca	ぎゅうにゅう	牛乳	latte vaccino			
 263	5	先	prima	Devi uccidere il minotauro 牛 + 儿 *prima* di uscire dal labirinto	せんげつ	先月	il mese scorso	せんせい	先生	insegnante			
-267	４	茶	tè	Il *tè* è fatto da fiori 艹 fatti seccare sotto una tettoia 个 di legno 木	おちゃ	お茶	tè						
+267	4	茶	tè	Il *tè* è fatto da fiori 艹 fatti seccare sotto una tettoia 个 di legno 木	おちゃ	お茶	tè						
 271	4	王	re	Il *re* è uno 一 ma comanda su tutta la  sua terra 土	だいおう	大王	grande re	かいぞくおうにおれはなる	海賊王に俺はなる	diventerò il re dei pirati			
 287	5	金	oro	Sotto il suo tetto 个, un re 王 si gode le sue otto ハ monete d'*oro*	かね	金	moneta, metallo	きんようび	金曜日	venerdì			
 309	5	前	Di fronte	Con un elmo cornuto 䒑, *di fronte* alla luna 月 il ninja prepara la sua lama刂	なまえ	名前	Nome 	ごぜん	午前	Mattina, a.m.			
@@ -65,7 +65,7 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 610	4	午	Mezzogiorno, segno del cavallo	Come la mucca 牛 ma senza spuntone in alto: un *cavallo*	うまどし	午年	Anno del cavallo	ごご	午後	Mattina, a.m.	ごぜん	午前	Pomeriggio, p.m.
 615	2	羽	piume, contatore per gli uccelli	Due ali piumate 冫	はね	羽	piuma, ala	ななわ	七羽	sette uccelli			
 618	4	曜	giorno della settimana	I *giorni* 日 volano con le ali ヨヨ come fossero uccelli 隹	ようび	曜日	giorno della settimana						
-624	5	国	Nazione	La *nazione* è un gioiello 玉 chiuso nei suoi confini 囗	おくに	お国	il tuo paese nativo	いこく	異国	paese estero			
+624	5	国	Nazione	La *nazione* è un gioiello 玉 chiuso nei suoi confini 囗	おくに	お国	il tuo paese nativo	いこく	異国	paese estero	がいこくじん	外国人	persona straniera
 634	3	庭	giardino	Intorno 广 alla corte 廷 c'è il *giardino*	にわき	庭木	albero da giardino	ぜんてい	前庭	giardino frontale			
 639	4	心	cuore	La L di Love, con tre spruzzi di sangue	こころ	心	cuore						
 760	5	友	Amico	Tieni ナ per la mano destra 又 i tuoi *amici*	ともだち	友達	Amico, compagno 						
@@ -99,9 +99,9 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 1368	3	交	mischiare	Con un cappello 亠, il padre 父 pensa di *mischiarsi* tra i giovani	こっこう	国交	relazioni diplomatiche						
 1371	5	校	esame, scuola	Prima di un *esame*, i banchi di legno 木 si mischiano 交	がっこう	学校	scuola						
 1406	2	階	piano	Per raggiungere il pinnacolo 阝devi salire tutti 皆 i *piani*	いっかい	一階	primo piano						
-1479	５	後	dietro	Un uomo che cammina 彳 e incontra una ragnatela di fili 幺 fa ritardo 夂 e resta *dietro* gli altri	このあと	この後	dopo di questo	ごご	午後	Mattina, a.m.	あさって	明後日	dopodomani
+1479	5	後	dietro	Un uomo che cammina 彳 e incontra una ragnatela di fili 幺 fa ritardo 夂 e resta *dietro* gli altri	このあと	この後	dopo di questo	ごご	午後	Mattina, a.m.	あさって	明後日	dopodomani
 1504	4	零	zero	Il numero di persone che può comandare 令 alla pioggia 雨 di fermarsi: *zero*	れい	零	zero						
-1526	４	卵	uovo	Il coniglio 卯 di pasqua porta le *uova* 丷	たまご	卵	uovo	ラン	卵	ovulo			
+1526	4	卵	uovo	Il coniglio 卯 di pasqua porta le *uova* 丷	たまご	卵	uovo	ラン	卵	ovulo			
 1582	5	食	mangiare	Sotto il tetto 个 mi fermo 艮 a *mangiare*	たべる	食べる	mangiare	しょく	食	cibo			
 1583	4	飯	Pasto	Prima si mangia 食 l'anti 反 *pasto*	ごはん	ご飯	Riso bianco						
 1584	4	飲	bere 	Se hai solo mangiato 食 ti manca 欠 di *bere*	のみます	飲みます	bere	いんしゅ	飲酒	bere alcool			
@@ -117,4 +117,11 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 1933	1	僕	Io (maschio)	Una persona 亻definita dalla sua professione 業 è di solito un *maschio*	ぼく	僕	Io (maschio)	かみのしもべ	神の僕	Servo di Dio			
 1988	3	部	sezione	Devi stare in piedi 立 su una scatola 口 per vedere oltre questa *sezione* della città阝	へや	部屋	camera						
 2029	5	来	venire, prossimo	*Vengo* a casa, sotto il mio tetto 亠 丷 di legno 木	きます	来ます	venire	らいげつ	来月	il prossimo mese	きすぎ	来生	la prossima vita
-2091	4	鳥	uccello	Un uccello bianco 白 con una 一 grande coda piumata	とり	鳥	uccello						
+2091	4	鳥	uccello	Un *uccello* bianco 白 con una 一 grande coda piumata	とり	鳥	uccello						
+551	3	歳	fine dell'anno, età	Alla *fine dell'anno* ci fermiamo 止 per una ノ festa 戈 piccolina 小	じゅうはちさい	十八歳	diciotto anni di età	さいさい	歳歳	annualmente			
+396	4	止	fermarsi	Un cartello di stop | e un poliziotto che fa il segno di stop |-	とまる	止まる	fermarsi						
+116	5	外	fuori	Se sei *fuori* la sera 夕 ti serve una torcia卜	そと	外	fuori	がいがくせい	外学生	studente straniero	このほか	この外	oltretutto
+1023	5	人	persona	Le gambe di una *persona* stilizzate	ひと	人	persona	イタリアじん	イタリア人	persona italiana	にんげん	人間	essere umano
+1527	3	留	trattenere, allacciare	Io 厶 ti *trattengo* con la mia katana 刀 nel campo di riso 田	りゅうがくせい	留学生	studente in scambio						
+1047	2	個	individuo, contatore generico	Una persona 亻 diventa un *individuo* quando cresce e si indurisce 固	よんこ	四個	quattro cose						
+622	2	固	indurire	Chiusi nell'ambra 囗 i vecchi 古 fossili si induriscono	かためる	固める	indurire						

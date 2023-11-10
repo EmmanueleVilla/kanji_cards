@@ -1,7 +1,10 @@
 package com.shadowings.kanjitrainerita
 
 enum class SortedBy {
-    Id,
-    Jlpt,
-    Mood
+    IdAsc,
+    IdDesc,
+    JlptAsc,
+    JlptDesc,
+    MoodAsc,
+    MoodDesc
 }
