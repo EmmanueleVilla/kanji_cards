@@ -24,9 +24,13 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 53	4	朝	mattina	Il sole 日 spunta dall'erba 艹 mentre c'è ancora la luna 月: è *mattina*!	まいあさ	毎朝	ogni mattina	あさごはん	朝ご飯	colazione			
 61	5	見	Vedere	Un occhio 目 con le gambe 儿 per *vedere*	みる	見る	vedere	みえる	見える	essere visto			
 66	1	凡	mediocre	A non è un voto *mediocre*	ぼんじん	凡人	una persona mediocre						
+68	5	万	10mila	Sembra una T e una h, di ten THousand	まん	万	Diecimila						
 97	2	可	potere (can)	Una bocca 口 che chiede per strada 丁 se *può* fare qualcosa	か	可	accettabile	かわいい	可愛い	carino			
 99	5	子	bambino	Un *bambino* di dieci 十 anni con un cappuccio	こ	子	bambino	こども	子供	figlio	いす	椅子	sedia
+102	5	女	donna	Una *donna* ninja è una くノ一	おんな	女	donna	かのじょ	彼女	lei			
 105	5	母	Mamma	Due seni in verticale, la *mamma*	はは	母	la mia mamma	おかあさん	お母さん	la mamma di qualcun altro			
+107	4	兄	fratello maggiore	Una bocca 口 con le gambe 儿	あに	兄	fratello maggiore	きょうだい	兄弟	fratelli			
+116	5	外	fuori	Se sei *fuori* la sera 夕 ti serve una torcia卜	そと	外	fuori	がいがくせい	外学生	studente straniero	このほか	この外	oltretutto
 117	5	名	Nome	Per farti riconoscere di sera 夕 devi aprire la bocca 口 e dire il tuo *nome*	なまえ	名前	Nome						
 134	5	川	fiume	Un *fiume* che scorre	かわ	川	fiume						
 137	5	水	acqua	7K euro di piscina piena di *acqua*	みず	水	acqua	すいようび	水曜日	mercoledì			
@@ -38,6 +42,7 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 223	2	机	scrivania	Con un albero 木 fai una *scrivania* 几	つくえ	机	scrivania						
 224	5	本	Libro	Un albero tagliato per fare un *libro*	ほん	本	libro	おおもと	大本	fonte	origine		
 229	3	未	Non ancora	In serra 亠 c'è un piccolo albero 木 *non ancora* cresciuto	み	未	non ancora (yet)	まだ	未だ	ancora (still)			
+234	4	妹	sorella minore	Una donna 女 non ancora 未 cresciuta	いもうと	妹	sorella minore	ていまい	弟妹	fratello e sorella minori			
 253	4	犬	cane	Il *cane* è un grande 大 amico a cui lanci un bastone 丶	いぬ	犬	cane	こいぬ	子犬	cucciolo di cane			
 259	3	猫	gatto	Il gatto è inseguito dal cane犭 sull'erba 艹 dei prati 田	ねこ	猫	gatto	こねこ	子猫	cucciolo di gatto			
 260	4	牛	Mucca	Corno 丿 Zampe 二 Corpo |: *mucca*	うし	牛	Mucca	ぎゅうにゅう	牛乳	latte vaccino			
@@ -54,17 +59,23 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 368	5	話	storia, parlare 	Leggo una parola 言 e la dico con la lingua 舌, *parlando*	はなす	話す	parlare	はなし	話	storia, racconto	わ	話	contatore
 371	5	語	Parola	La *parola* più facile da dire 言 è io 吾	えいご	英語	La lingua inglese	かなります	語ります	Parlare di qualcosa 			
 372	5	読	Leggere	Le parole 言 che *leggiamo* servono a venderci 売 qualcosa	よむ	読む	leggere	どくしゃ	読者	lettore			
+396	4	止	fermarsi	Un cartello di stop | e un poliziotto che fa il segno di stop |-	とまる	止まる	fermarsi						
+440	3	市	mercato, città	Al *mercato* vendono cappelli 亠 e asciugamani 巾	いち	市	mercato						
+442	4	姉	sorella maggiore	Una donna 女 abbastanza grande da andare sul mercato 市	あね	姉	sorella maggiore	おねえさん	お姉さん	sorella maggiore	しまい	姉妹	sorelle
 482	2	比	confrontare	Due cucchiai 匕 a *confronto*	くらべる	比べる	confrontare						
 484	4	皆	tutto, tutti	Il mio Dash lava di *tutto*! Non c'è confronto 比, più bianco 白 non si può!	みなさん	皆さん	tutti (persone)						
 497	5	毎	ogni	*Ogni* persona 亻ha una mamma 毋	まいにち	毎日	ogni giorno	つきごと	月毎	mensilmente			
 505	3	欠	mancanza	legando 勹 una persona 人, le fai *mancare* la libertà 	けつ	欠	mancanza						
 547	1	廷	corte, tribunale	La *corte* tiene elevato 廴 il re 王	ちょうてい	朝廷	corte imperiale						
+551	3	歳	fine dell'anno, età	Alla *fine dell'anno* ci fermiamo 止 per una ノ festa 戈 piccolina 小	じゅうはちさい	十八歳	diciotto anni di età	さいさい	歳歳	annualmente			
 556	2	虫	insetto	Un *insetto* 中 che punge un braccio _	むし	虫	insetto						
 563	4	風	vento	Un mediocre 凡 insetto 虫 non resiste al *vento*	かぜ	風	vento	ふろ	風呂	bagno (stanza)			
-580	4	家	casa	Un tetto 宀 con dentro i tre porcellini 豕, in *casa*	いえ	家	casa	おうち	お家	la mia casa			
+580	4	家	casa	Un tetto 宀 con dentro i tre porcellini 豕, in *casa*	いえ	家	casa	おうち	お家	la mia casa	かぞく	家族	famiglia
+598	3	誰	chi	Disse 言 il gufo 隹, who whooo? *chi*?	だれ	誰	chi						
 610	4	午	Mezzogiorno, segno del cavallo	Come la mucca 牛 ma senza spuntone in alto: un *cavallo*	うまどし	午年	Anno del cavallo	ごご	午後	Mattina, a.m.	ごぜん	午前	Pomeriggio, p.m.
 615	2	羽	piume, contatore per gli uccelli	Due ali piumate 冫	はね	羽	piuma, ala	ななわ	七羽	sette uccelli			
 618	4	曜	giorno della settimana	I *giorni* 日 volano con le ali ヨヨ come fossero uccelli 隹	ようび	曜日	giorno della settimana						
+622	2	固	indurire	Chiusi nell'ambra 囗 i vecchi 古 fossili si induriscono	かためる	固める	indurire						
 624	5	国	Nazione	La *nazione* è un gioiello 玉 chiuso nei suoi confini 囗	おくに	お国	il tuo paese nativo	いこく	異国	paese estero	がいこくじん	外国人	persona straniera
 634	3	庭	giardino	Intorno 广 alla corte 廷 c'è il *giardino*	にわき	庭木	albero da giardino	ぜんてい	前庭	giardino frontale			
 639	4	心	cuore	La L di Love, con tre spruzzi di sangue	こころ	心	cuore						
@@ -79,10 +90,14 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 816	4	室	stanza	Sotto il tuo tetto 宀 l'apice 至 è la tua *stanza*	しんしつ	寝室	camera da letto						
 830	5	山	Montagna	Letteralmente una *montagna*	やま	山	montagna	ふじさん	富士山	Monte Fuji			
 844	5	分	parte, minuto	Una splendente 丷 katana 刀 divide in *parti*	いちぷん	一分	un minuto						
+861	4	堂	Hall	Sotto il tetto 冖 e sopra il pavimento 土 della *sala pubblica*, chiunque può parlare 口	しょくどう	食堂	Mensa						
 894	4	買	comprare	*Compro* una rete 罒 per pescare conchiglie 貝	かいます	買います	comprare	ばいばい	売買	compravendita			
 938	5	行	andare	ite イテ (andare in latino)	いきます	行きます	andare						
+948	3	彼	lui	Ovunque *lui* vada 彳, indossa abiti di pelliccia 皮	かれ	彼	lui	かのじょ	彼女	lei	かれら	彼ら	loro
 968	5	私	Io	Questo grano 禾 è privato ㄙ, lo mieto *io*!	わたし	私	io	しりつ	私立	privato (scuola)			
+1023	5	人	persona	Le gambe di una *persona* stilizzate	ひと	人	persona	イタリアじん	イタリア人	persona italiana	にんげん	人間	essere umano
 1038	5	休	riposare	Un uomo 亻appoggiato a un albero 木 che si *riposa*	やすみます	休みます	riposare						
+1047	2	個	individuo, contatore generico	Una persona 亻 diventa un *individuo* quando cresce e si indurisce 固	よんこ	四個	quattro cose						
 1083	3	化	cambiare	Una persona in piedi 亻che si siede 匕 *cambiando* posizione	ばける	化ける	cambiare						
 1084	4	花	fiore	L'erba 艹 cambia 化 colore coi *fiori*	はな	花	fiore	はなび	花火	fuochi d'artificio	かびん	花瓶	vaso di fiori
 1087	5	何	cosa (what)	Un uomo 亻può fare 可 qualsiasi *cosa*	なに	何	cosa	なぜ	何故	perché	なにか	何か	qualcosa
@@ -90,11 +105,15 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 1114	5	年	Anno	Almeno una volta all'*anno*, a mezzogiorno 午 metto gli occhiali da sole	とし	年	Anno	がくねん	学年	Classe scolastica (grade)			
 1129	4	物	cosa	Una mucca 牜 non 勿 è una *cosa*	もの	物	cosa	しぶつ	私物	effetti personali			
 1138	4	屋	tetto, casa	All'apice 至 del *tetto* si mette la bandiera 尸	へや	部屋	camera						
+1156	4	昼	Orario diurno (daytime)	A pRanzo 尺 il sole 日 sta sopra all'orizzonte 一	ひるごはん	昼ご飯	Pranzo						
 1173	4	社	azienda, altare	Unn culto ⺭ che ti tratta come terra 土: l'*azienda*	かいしゃ	会社	azienda	やしろ	社	altare shintoista			
 1208	3	所	luogo	Spacco la porta 戸 con un'ascia 斤 perché il luogo è chiuso	ところ	所	luogo	だいどころ	台所	cucina (stanza)			
 1224	4	作	fare, produrre, preparare	Un uomo 亻che sega e *produce*	つくります	作ります	produrre qualcosa						
 1233	3	寝	sdraiarsi	In casa 宀 mi aspettava la mia tartaruga丬col suo bel muso 彐, ma quando l'ho toccata 冖 mi ha morso la mano 又 e mi sono andato a *sdraiare*	しんしつ	寝室	camera da letto						
+1252	3	両	entrambi	Gli escursionisti morirono perché avevano portato una 一 sola cintura 冂 in montagna 山 per *entrambi*	りょうしん	両親	genitori						
 1286	5	半	Metà	Un colpo ⼁ che sta rompendo il 3 三 a *metà*	はん	半	metà	くじはん	九時半	Le 9:30			
+1307	4	族	tribù	Se vai in direzione 方 di una *tribù*, ti puoi aspettare addosso una 一 freccia 矢	かぞく	家族	famiglia						
+1328	4	弟	fratello minore	Un arco 弓 con corna e coda	おとうと	弟	fratello minore						
 1366	5	父	Papà	Un *padre* che impugna due spade per difendere la famiglia	ちち	父	il mio papà	おとうさん	お父さん	il papà di qualcun altro	ふぼ	父母	genitori
 1368	3	交	mischiare	Con un cappello 亠, il padre 父 pensa di *mischiarsi* tra i giovani	こっこう	国交	relazioni diplomatiche						
 1371	5	校	esame, scuola	Prima di un *esame*, i banchi di legno 木 si mischiano 交	がっこう	学校	scuola						
@@ -102,10 +121,12 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 1479	5	後	dietro	Un uomo che cammina 彳 e incontra una ragnatela di fili 幺 fa ritardo 夂 e resta *dietro* gli altri	このあと	この後	dopo di questo	ごご	午後	Mattina, a.m.	あさって	明後日	dopodomani
 1504	4	零	zero	Il numero di persone che può comandare 令 alla pioggia 雨 di fermarsi: *zero*	れい	零	zero						
 1526	4	卵	uovo	Il coniglio 卯 di pasqua porta le *uova* 丷	たまご	卵	uovo	ラン	卵	ovulo			
+1527	3	留	trattenere, allacciare	Io 厶 ti *trattengo* con la mia katana 刀 nel campo di riso 田	りゅうがくせい	留学生	studente in scambio						
 1582	5	食	mangiare	Sotto il tetto 个 mi fermo 艮 a *mangiare*	たべる	食べる	mangiare	しょく	食	cibo			
 1583	4	飯	Pasto	Prima si mangia 食 l'anti 反 *pasto*	ごはん	ご飯	Riso bianco						
 1584	4	飲	bere 	Se hai solo mangiato 食 ti manca 欠 di *bere*	のみます	飲みます	bere	いんしゅ	飲酒	bere alcool			
 1619	4	新	nuovo	Una pila 立 di legna 木 appena tagliata *nuova* con un'ascia 斤	あたらしい	新しい	nuovo	しんぶん	新聞	giornale			
+1621	4	親	genitore	Il *genitore* costruisce un rialzo 立 di legno 木 per vedere 見 meglio i figli	おや	親	genitore	りょうしん	両親	genitori			
 1675	5	生	vita	Una mucca 牛 spende la sua *vita* a terra 土	せい	生	vita	いきたい	生きたい	VOGLIO VIVEREEEEEE	せんせい	先生	insegnante
 1711	5	今	adesso	La riunione 亼 è alle 7, cioè *adesso*!	いま	今	adesso	こんげつ	今月	questo mese	きょう	今日	oggi
 1722	4	野	Pianura, campo	Per le risaie 田, il terreno 土 delle *pianure* è perfetto, devi solo sistemarlo prima 予	やさい	野菜	Verdura						
@@ -115,13 +136,11 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 1924	2	並	Fila	Una nave vista dall'alto, coi remi (rowing) in *fila*	なみ	並	comune, media	なみき	並木	fila di alberi			
 1931	4	業	Professione	Per decidere la mia *professione* dovrei mettere in fila 並 le mie idee, ma non l'ho ancora 未 fatto	ぎょう	業	business	わざ	業	opera, azione			
 1933	1	僕	Io (maschio)	Una persona 亻definita dalla sua professione 業 è di solito un *maschio*	ぼく	僕	Io (maschio)	かみのしもべ	神の僕	Servo di Dio			
+1934	3	共	insieme	Due tizi seppelliti 土土 *insieme* e la loro bara (in prospettiva)	ともに	共に	insieme, nello stesso momento						
+1935	3	供	sottoporre, offrire	Gli uomini 亻, presentano insieme 共 un'*offerta* al tempio	こども	子供	figlio						
+1952	5	円	Cerchio	Lo sportello di una banca 	えん	円	Yen						
 1988	3	部	sezione	Devi stare in piedi 立 su una scatola 口 per vedere oltre questa *sezione* della città阝	へや	部屋	camera						
 2029	5	来	venire, prossimo	*Vengo* a casa, sotto il mio tetto 亠 丷 di legno 木	きます	来ます	venire	らいげつ	来月	il prossimo mese	きすぎ	来生	la prossima vita
 2091	4	鳥	uccello	Un *uccello* bianco 白 con una 一 grande coda piumata	とり	鳥	uccello						
-551	3	歳	fine dell'anno, età	Alla *fine dell'anno* ci fermiamo 止 per una ノ festa 戈 piccolina 小	じゅうはちさい	十八歳	diciotto anni di età	さいさい	歳歳	annualmente			
-396	4	止	fermarsi	Un cartello di stop | e un poliziotto che fa il segno di stop |-	とまる	止まる	fermarsi						
-116	5	外	fuori	Se sei *fuori* la sera 夕 ti serve una torcia卜	そと	外	fuori	がいがくせい	外学生	studente straniero	このほか	この外	oltretutto
-1023	5	人	persona	Le gambe di una *persona* stilizzate	ひと	人	persona	イタリアじん	イタリア人	persona italiana	にんげん	人間	essere umano
-1527	3	留	trattenere, allacciare	Io 厶 ti *trattengo* con la mia katana 刀 nel campo di riso 田	りゅうがくせい	留学生	studente in scambio						
-1047	2	個	individuo, contatore generico	Una persona 亻 diventa un *individuo* quando cresce e si indurisce 固	よんこ	四個	quattro cose						
-622	2	固	indurire	Chiusi nell'ambra 囗 i vecchi 古 fossili si induriscono	かためる	固める	indurire						
+2126	1	免	Scusa 	Imbavagliato 勹 口 e legato ai piedi 儿? Potevi inventare una *scusa* migliore	ごめん	ご免	Mi scuso						
+2128	3	晩	Crepuscolo 	Il sole 日 si scusa 免 e va a dormire	ばんごはん	晩ご飯	Cena						

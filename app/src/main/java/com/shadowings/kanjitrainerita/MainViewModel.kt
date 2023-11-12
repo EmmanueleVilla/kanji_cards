@@ -7,20 +7,39 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(private val application: Application) : AndroidViewModel(application) {
 
-    val kanjiLiveData: MutableLiveData<List<KanjiInfo>> = MutableLiveData(listOf())
+    companion object {
+        val kanjiLiveData: MutableLiveData<List<KanjiInfo>> = MutableLiveData(listOf())
 
-    private val fullKanjiList: MutableLiveData<List<KanjiInfo>> = MutableLiveData(listOf())
+        private val fullKanjiList: MutableLiveData<List<KanjiInfo>> = MutableLiveData(listOf())
+        private var preferencesManager: PreferencesManager? = null
 
-    init {
+        fun reloadKanjiValues() {
+            val newList = mutableListOf<KanjiInfo>()
+            for (kanji in kanjiLiveData.value!!) {
+                newList.add(
+                    kanji.copy(
+                        happiness = preferencesManager?.getInt(
+                            kanji.id.toString(),
+                            -2
+                        ) ?: kanji.happiness
+                    )
+                )
+            }
+            kanjiLiveData.value = newList.toList()
+            fullKanjiList.value = newList.toList()
+        }
+    }
+
+    fun init() {
         viewModelScope.launch {
             val kanjis = application.assets.open("kanji.tsv").bufferedReader().use {
                 it.readText()
             }
 
             val list: MutableList<KanjiInfo> = mutableListOf()
-            val prefManager = PreferencesManager(application)
+            preferencesManager = PreferencesManager(application)
 
             val rows = kanjis.split("\n").drop(1)
             for (row in rows) {
@@ -50,7 +69,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         val wordMeaning = columns[13]
                         words.add(WordInfo(wordKana, wordKanji, wordMeaning))
                     }
-                    val happiness = prefManager.getInt(id.toString(), 0)
+                    val happiness = preferencesManager?.getInt(id.toString(), -2) ?: -2
                     list.add(
                         KanjiInfo(
                             id = id,

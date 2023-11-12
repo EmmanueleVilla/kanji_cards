@@ -26,10 +26,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.kanjiLiveData.observeForever {
+        MainViewModel.kanjiLiveData.observeForever {
             kanjiList = it
             Log.e("KanjiTrainerITA", "Kanji list size: ${kanjiList.size}")
         }
+
+        viewModel.init()
 
         setTheme(R.style.Theme_KanjiTrainerITA)
 

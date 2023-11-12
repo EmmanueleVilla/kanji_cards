@@ -32,13 +32,16 @@ import androidx.navigation.NavHostController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostController) {
-    BackHandler(true) {
-        Log.d("TAG", "OnBackPressed")
+
+    BackHandler {
+        MainViewModel.reloadKanjiValues()
+        navController.popBackStack()
     }
     var showHint by remember { mutableStateOf(false) }
     var showAnswer by remember { mutableStateOf(false) }
-    var mode = remember { mutableStateOf(TrainingMode.Card) }
+    val mode = remember { mutableStateOf(TrainingMode.Card) }
 
+    var selectedList by remember { mutableStateOf(listOf<KanjiInfo>()) }
     var subList by remember { mutableStateOf(listOf<KanjiInfo>()) }
     var currentKanji: KanjiInfo? by remember { mutableStateOf(null) }
 
@@ -46,9 +49,31 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
     val preferencesManager = PreferencesManager(context)
 
     LaunchedEffect(Unit) {
-        val list = preferencesManager.getKanjiIds(listOf())
-        subList = kanjiList.filter { list.contains(it.id) }
-        currentKanji = subList.random()
+        val boxes = kanjiList.groupBy { it.happiness }.toList().sortedBy { it.first }
+        var list = mutableListOf<KanjiInfo>()
+        while (list.size < 25) {
+            // take 5 kanjis from the first box
+            if (boxes.isNotEmpty()) {
+                list.addAll(boxes[0].second.shuffled().take(5))
+            }
+            // take 3 kanjis from the second box
+            if (boxes.size > 1) {
+                list.addAll(boxes[1].second.shuffled().take(3))
+            }
+
+            // take 1 kanji from all boxes
+            if (boxes.size > 2) {
+                list.addAll(kanjiList.shuffled().take(1))
+            }
+
+            // remove duplicates
+            list = list.distinct().toMutableList()
+        }
+
+        selectedList = list
+        subList = list
+        currentKanji = subList[0]
+        subList = subList.drop(1)
         Log.e("KanjiList", subList.toString())
     }
 
@@ -107,9 +132,14 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                     IconButton(onClick = {
                                         preferencesManager.putInt(
                                             "${info.id}",
-                                            minOf(-5, info.happiness - 2)
+                                            minOf(-2, info.happiness - 2)
                                         )
-                                        currentKanji = subList.random()
+                                        if (subList.isEmpty()) {
+                                            subList = selectedList
+                                        }
+                                        currentKanji = subList[0]
+                                        subList = subList.drop(1)
+
                                         showAnswer = false
                                         showHint = false
                                     }) {
@@ -121,9 +151,13 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                     IconButton(onClick = {
                                         preferencesManager.putInt(
                                             "${info.id}",
-                                            minOf(-5, info.happiness - 1)
+                                            minOf(-2, info.happiness - 1)
                                         )
-                                        currentKanji = subList.random()
+                                        if (subList.isEmpty()) {
+                                            subList = selectedList
+                                        }
+                                        currentKanji = subList[0]
+                                        subList = subList.drop(1)
                                         showAnswer = false
                                         showHint = false
                                     }) {
@@ -133,7 +167,11 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                         )
                                     }
                                     IconButton(onClick = {
-                                        currentKanji = subList.random()
+                                        if (subList.isEmpty()) {
+                                            subList = selectedList
+                                        }
+                                        currentKanji = subList[0]
+                                        subList = subList.drop(1)
                                         showAnswer = false
                                         showHint = false
                                     }) {
@@ -147,7 +185,11 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                             "${info.id}",
                                             maxOf(5, info.happiness + 1)
                                         )
-                                        currentKanji = subList.random()
+                                        if (subList.isEmpty()) {
+                                            subList = selectedList
+                                        }
+                                        currentKanji = subList[0]
+                                        subList = subList.drop(1)
                                         showAnswer = false
                                         showHint = false
                                     }) {
@@ -163,7 +205,11 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                                 "${info.id}",
                                                 maxOf(5, info.happiness + 2)
                                             )
-                                            currentKanji = subList.random()
+                                            if (subList.isEmpty()) {
+                                                subList = selectedList
+                                            }
+                                            currentKanji = subList[0]
+                                            subList = subList.drop(1)
                                             showAnswer = false
                                             showHint = false
                                         }) {

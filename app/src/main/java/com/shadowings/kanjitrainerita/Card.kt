@@ -76,7 +76,8 @@ fun KanjiCard(
     ) {
         ElevatedCard(Modifier.size(300.dp)) {
             Text(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize(),
                 text = info.kanji,
                 fontSize = 220.sp,
                 textAlign = TextAlign.Center

@@ -2,7 +2,6 @@ package com.shadowings.kanjitrainerita
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +28,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -74,8 +72,6 @@ fun HomeComposablePreview() {
 @Composable
 fun HomeComposable(kanjis: List<KanjiInfo>, navController: NavHostController) {
 
-    val openAlertDialog = remember { mutableStateOf(false) }
-
     var searching by rememberSaveable { mutableStateOf(false) }
     var query by rememberSaveable { mutableStateOf("") }
     var active by rememberSaveable { mutableStateOf(false) }
@@ -94,153 +90,140 @@ fun HomeComposable(kanjis: List<KanjiInfo>, navController: NavHostController) {
         }
     }
 
-    val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    Box {
-        Scaffold(
-            snackbarHost = {
-                SnackbarHost(hostState = snackbarHostState)
-            },
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text(text = "Kanji Trainer ITA")
-                    },
-                    actions = {
-                        Row(Modifier.padding(end = 12.dp)) {
-                            Icon(Icons.Default.Info, contentDescription = "Info")
-                        }
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "Kanji Trainer ITA")
+                },
+                actions = {
+                    Row(Modifier.padding(end = 12.dp)) {
+                        Icon(Icons.Default.Info, contentDescription = "Info")
                     }
-                )
-            },
-            bottomBar = {
-                BottomAppBar(
-                    actions = {
+                }
+            )
+        },
+        bottomBar = {
+            BottomAppBar(
+                actions = {
 
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            AnimatedVisibility(!searching) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        AnimatedVisibility(!searching) {
+                            IconButton(onClick = {
+                                searching = true
+                            }) {
+                                Icon(
+                                    Icons.Default.Search,
+                                    contentDescription = "Localized description"
+                                )
+                            }
+                        }
+                        AnimatedVisibility(searching) {
+                            Row(
+                                modifier = Modifier,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
                                 IconButton(onClick = {
-                                    searching = true
+                                    searching = false
+                                    active = false
+                                    query = ""
+                                    filteredList = kanjis
                                 }) {
                                     Icon(
-                                        Icons.Default.Search,
+                                        Icons.Default.Close,
                                         contentDescription = "Localized description"
                                     )
                                 }
-                            }
-                            AnimatedVisibility(searching) {
-                                Row(
+                                SearchBar(
                                     modifier = Modifier,
-                                    verticalAlignment = Alignment.CenterVertically,
+                                    query = query,
+                                    onQueryChange = {
+                                        Log.e("HomeComposable", "onQueryChange: $it")
+                                        query = it
+                                    },
+                                    onSearch = {},
+                                    active = active,
+                                    onActiveChange = {
+                                        active = it
+                                    },
+                                    placeholder = { Text("Kanji o significato") },
                                 ) {
-                                    IconButton(onClick = {
-                                        searching = false
-                                        active = false
-                                        query = ""
-                                        filteredList = kanjis
-                                    }) {
-                                        Icon(
-                                            Icons.Default.Close,
-                                            contentDescription = "Localized description"
-                                        )
-                                    }
-                                    SearchBar(
-                                        modifier = Modifier,
-                                        query = query,
-                                        onQueryChange = {
-                                            Log.e("HomeComposable", "onQueryChange: $it")
-                                            query = it
-                                        },
-                                        onSearch = {},
-                                        active = active,
-                                        onActiveChange = {
-                                            active = it
-                                        },
-                                        placeholder = { Text("Kanji o significato") },
-                                    ) {
-                                    }
                                 }
-                            }
-                            IconButton(onClick = {
-                                sortedBy = when (sortedBy) {
-                                    SortedBy.IdAsc -> SortedBy.IdDesc
-                                    SortedBy.IdDesc -> SortedBy.JlptAsc
-                                    SortedBy.JlptAsc -> SortedBy.JlptDesc
-                                    SortedBy.JlptDesc -> SortedBy.MoodAsc
-                                    SortedBy.MoodAsc -> SortedBy.MoodDesc
-                                    SortedBy.MoodDesc -> SortedBy.IdAsc
-                                }
-                            }) {
-                                Icon(
-                                    painter = painterResource(
-                                        id =
-                                        when (sortedBy) {
-                                            SortedBy.IdAsc -> R.drawable.ic_sort_id_asc
-                                            SortedBy.IdDesc -> R.drawable.ic_sort_id_desc
-                                            SortedBy.JlptAsc -> R.drawable.ic_sort_jlpt_asc
-                                            SortedBy.JlptDesc -> R.drawable.ic_sort_jlpt_desc
-                                            SortedBy.MoodAsc -> R.drawable.ic_sort_smile_asc
-                                            SortedBy.MoodDesc -> R.drawable.ic_sort_smile_desc
-                                        }
-                                    ),
-                                    contentDescription = "Localized description",
-                                )
-                            }
-                            IconButton(onClick = { /* do something */ }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_filter),
-                                    contentDescription = "Localized description",
-                                )
                             }
                         }
-                    },
-                    floatingActionButton = {
-                        ExtendedFloatingActionButton(onClick = {
-                            openAlertDialog.value = true
-                        }) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Icon(Icons.Default.PlayArrow, contentDescription = "Study")
-                                Spacer(modifier = Modifier.padding(4.dp))
-                                Text("Studia")
+                        IconButton(onClick = {
+                            sortedBy = when (sortedBy) {
+                                SortedBy.IdAsc -> SortedBy.IdDesc
+                                SortedBy.IdDesc -> SortedBy.JlptAsc
+                                SortedBy.JlptAsc -> SortedBy.JlptDesc
+                                SortedBy.JlptDesc -> SortedBy.MoodAsc
+                                SortedBy.MoodAsc -> SortedBy.MoodDesc
+                                SortedBy.MoodDesc -> SortedBy.IdAsc
                             }
+                        }) {
+                            Icon(
+                                painter = painterResource(
+                                    id =
+                                    when (sortedBy) {
+                                        SortedBy.IdAsc -> R.drawable.ic_sort_id_asc
+                                        SortedBy.IdDesc -> R.drawable.ic_sort_id_desc
+                                        SortedBy.JlptAsc -> R.drawable.ic_sort_jlpt_asc
+                                        SortedBy.JlptDesc -> R.drawable.ic_sort_jlpt_desc
+                                        SortedBy.MoodAsc -> R.drawable.ic_sort_smile_asc
+                                        SortedBy.MoodDesc -> R.drawable.ic_sort_smile_desc
+                                    }
+                                ),
+                                contentDescription = "Localized description",
+                            )
+                        }
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_filter),
+                                contentDescription = "Localized description",
+                            )
                         }
                     }
-                )
-            }
-        ) { paddingValues ->
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        bottom = paddingValues.calculateBottomPadding(),
-                        top = paddingValues.calculateTopPadding(),
-                    )
-            ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 8.dp, end = 8.dp),
-                    content = {
-                        items(filteredList.size) { index ->
-                            KanjiListItem(filteredList[index])
-                        }
-                    })
-            }
-        }
-        if (openAlertDialog.value) {
-            StudyDialog(
-                kanjis = kanjis,
-                onDismissRequest = { openAlertDialog.value = false },
-                onConfirmation = {
-                    openAlertDialog.value = false
-                    navController.navigate("training")
                 },
+                floatingActionButton = {
+                    ExtendedFloatingActionButton(onClick = {
+                        navController.navigate("training")
+                    }) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Icon(Icons.Default.PlayArrow, contentDescription = "Study")
+                            Spacer(modifier = Modifier.padding(4.dp))
+                            Text("Studia")
+                        }
+                    }
+                }
             )
+        }
+    ) { paddingValues ->
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    bottom = paddingValues.calculateBottomPadding(),
+                    top = paddingValues.calculateTopPadding(),
+                )
+        ) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp),
+                content = {
+                    items(filteredList.size) { index ->
+                        KanjiListItem(filteredList[index])
+                    }
+                })
         }
     }
 }
