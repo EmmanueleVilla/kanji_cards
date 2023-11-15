@@ -52,18 +52,23 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
         val boxes = kanjiList.groupBy { it.happiness }.toList().sortedBy { it.first }
         var list = mutableListOf<KanjiInfo>()
         while (list.size < 25) {
-            // take 5 kanjis from the first box
-            if (boxes.isNotEmpty()) {
-                list.addAll(boxes[0].second.shuffled().take(5))
-            }
-            // take 3 kanjis from the second box
-            if (boxes.size > 1) {
-                list.addAll(boxes[1].second.shuffled().take(3))
-            }
+            try {
+                // take 7 kanjis from the first box
+                if (boxes.isNotEmpty()) {
+                    list.addAll(boxes[0].second.shuffled().take(7))
+                }
 
-            // take 1 kanji from all boxes
-            if (boxes.size > 2) {
-                list.addAll(kanjiList.shuffled().take(1))
+                // take 5 kanjis from the second box
+                if (boxes.size > 1) {
+                    list.addAll(boxes[1].second.shuffled().take(5))
+                }
+
+                // take 1 kanji from the other boxes
+                if (boxes.size > 2) {
+                    list.addAll(boxes.drop(2).flatMap { it.second }.shuffled().take(1))
+                }
+            } catch (e: Exception) {
+                list.add(kanjiList.random())
             }
 
             // remove duplicates
@@ -135,7 +140,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                             minOf(-2, info.happiness - 2)
                                         )
                                         if (subList.isEmpty()) {
-                                            subList = selectedList
+                                            navController.popBackStack()
                                         }
                                         currentKanji = subList[0]
                                         subList = subList.drop(1)
@@ -154,7 +159,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                             minOf(-2, info.happiness - 1)
                                         )
                                         if (subList.isEmpty()) {
-                                            subList = selectedList
+                                            navController.popBackStack()
                                         }
                                         currentKanji = subList[0]
                                         subList = subList.drop(1)
@@ -168,7 +173,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                     }
                                     IconButton(onClick = {
                                         if (subList.isEmpty()) {
-                                            subList = selectedList
+                                            navController.popBackStack()
                                         }
                                         currentKanji = subList[0]
                                         subList = subList.drop(1)
@@ -186,7 +191,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                             maxOf(5, info.happiness + 1)
                                         )
                                         if (subList.isEmpty()) {
-                                            subList = selectedList
+                                            navController.popBackStack()
                                         }
                                         currentKanji = subList[0]
                                         subList = subList.drop(1)
@@ -206,7 +211,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                                 maxOf(5, info.happiness + 2)
                                             )
                                             if (subList.isEmpty()) {
-                                                subList = selectedList
+                                                navController.popBackStack()
                                             }
                                             currentKanji = subList[0]
                                             subList = subList.drop(1)
