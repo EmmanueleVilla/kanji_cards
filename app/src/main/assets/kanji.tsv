@@ -45,6 +45,7 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 173	5	火	fuoco	Un *fuoco* che arde	か	火	fuoco	はなび	花火	fuochi d'artificio	かようび	火曜日	martedì
 183	4	魚	pesce	Catturi 勹 un *pesce*, raccogli il riso 田 e lo cuoci 灬	さかな	魚	pesce	かわうお	川魚	pesce di fiume			
 202	4	安	Economico, relax	Il modo più *economico* di *rilassarsi* è a casa 宀 con la propria donna 女	やすい	安い	Economico						
+214	1	棚	Mensola, scaffale	Per costruire questa *mensola* ci ho messo un albero 木 e due mesi 月月	たな	棚	Mensola	ほんだな	本棚	Mensola con libri (bookshelf)			
 218	5	椅	sedia	Con un albero 木 grande 大 puoi 可 fare una *sedia*	いす	椅子	sedia						
 223	2	机	scrivania	Con un albero 木 fai una *scrivania* 几	つくえ	机	scrivania						
 224	5	本	Libro	Un albero tagliato per fare un *libro*	ほん	本	libro	おおもと	大本	fonte	origine		
@@ -114,6 +115,7 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 1087	5	何	cosa (what)	Un uomo 亻può fare 可 qualsiasi *cosa*	なに	何	cosa	なぜ	何故	perché	なにか	何か	qualcosa
 1098	4	肉	Carne	Dentro una persona 口 人 c'è tanta *carne*	にく	肉	Carne	ぶたにく	豚肉	Carne di maiale			
 1114	5	年	Anno	Almeno una volta all'*anno*, a mezzogiorno 午 metto gli occhiali da sole	とし	年	Anno	がくねん	学年	Classe scolastica (grade)			
+1127	4	旅	Viaggio	Sotto lo stendardo 方ノー l'esercito marciava 从 (亻卜) in *viaggio*	りょこう	旅行	Viaggiare						
 1129	4	物	cosa	Una mucca 牜 non 勿 è una *cosa*	もの	物	cosa	しぶつ	私物	effetti personali			
 1138	4	屋	tetto, casa	All'apice 至 del *tetto* si mette la bandiera 尸	へや	部屋	camera						
 1156	4	昼	Orario diurno (daytime)	A pRanzo 尺 il sole 日 sta sopra all'orizzonte 一	ひるごはん	昼ご飯	Pranzo						
@@ -132,6 +134,7 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 1368	3	交	mischiare	Con un cappello 亠, il padre 父 pensa di *mischiarsi* tra i giovani	こっこう	国交	relazioni diplomatiche						
 1371	5	校	esame, scuola	Prima di un *esame*, i banchi di legno 木 si mischiano 交	がっこう	学校	scuola						
 1406	2	階	piano	Per raggiungere il pinnacolo 阝devi salire tutti 皆 i *piani*	いっかい	一階	primo piano						
+1408	1	隣	Limitrofo	Il Giappone chiude i confini coi paesi *limitrofi*, tenendosi una pila 阝 di riso 米 per sé, e ballando 舛 per la felicità	となり	隣	Vicino a						
 1479	5	後	dietro	Un uomo che cammina 彳 e incontra una ragnatela di fili 幺 fa ritardo 夂 e resta *dietro* gli altri	このあと	この後	dopo di questo	ごご	午後	Mattina, a.m.	あさって	明後日	dopodomani
 1503	2	令	Ordini	Alla riunione 亼, l'*ordine* fu deciso e sigillato 卩	れい	令	Ordine						
 1504	4	零	zero	Il numero di persone che può comandare 令 alla pioggia 雨 di fermarsi: *zero*	れい	零	zero						
@@ -145,11 +148,15 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 1621	4	親	genitore	Il *genitore* costruisce un rialzo 立 di legno 木 per vedere 見 meglio i figli	おや	親	genitore	りょうしん	両親	genitori			
 1634	3	熱	Caldo (al tocco)	Per terra 土, con le gambe 儿 a terra 土, nove 九 scout intorno al fuoco caldo	あつい	熱い	Caldo						
 1675	5	生	vita	Una mucca 牛 spende la sua *vita* a terra 土	せい	生	vita	いきたい	生きたい	VOGLIO VIVEREEEEEE	せんせい	先生	insegnante
+1681	3	産	Prodotti	Se mettessi in fila 立 tutti i *prodotti* comprati durante la tua vita 生, sarebbe alta come una collina 厂	おみやげ	お土産	Souvenir						
 1711	5	今	adesso	La riunione 亼 è alle 7, cioè *adesso*!	いま	今	adesso	こんげつ	今月	questo mese	きょう	今日	oggi
 1722	4	野	Pianura, campo	Per le risaie 田, il terreno 土 delle *pianure* è perfetto, devi solo sistemarlo prima 予	やさい	野菜	Verdura						
 1747	5	間	intervallo, spazio	Dal cancello 門, la luce del sole 日 entra ad *intervalli*	じかん	時間	ora						
 1754	5	聞	sentire	Due mani 門 ad amplificare un orecchio 耳 per *sentire* meglio	きく	聞く	sentire	きこえる	聞こえる	essere sentito			
+1776	1	韓	Korea	La corea è una terra nebbiosa 十日十 chiusa 韋 tra giappone e cina	かんこく	韓国	Sud Corea						
 1878	4	英	Inghilterra 	Bere acqua con fiori 艹 è al centro 央 della vita in *inghilterra*	えいご	英語	La lingua inglese 						
+1887	2	黄	Giallo	Ho mangiato un fiore 艹 *giallo*, ed è una 一 ragione 由 per cui sono stato malato 8 ハ giorni	きいろい	黄色い	Giallo						
+1888	3	横	Di lato, orizzontale	L'albero 木 è diventato tutto giallo 黄 ed è caduto *orizzontale*	よこ	横	Orizzontale						
 1894	2	甘	Dolce (gusto)	Un cestino pieno di *dolci* è come un sole 日	あまい	甘い	Dolce						
 1924	2	並	Fila	Una nave vista dall'alto, coi remi (rowing) in *fila*	なみ	並	comune, media	なみき	並木	fila di alberi			
 1931	4	業	Professione	Per decidere la mia *professione* dovrei mettere in fila 並 le mie idee, ma non l'ho ancora 未 fatto	ぎょう	業	business	わざ	業	opera, azione			
@@ -157,13 +164,10 @@ id	jlpt	kanji	significato	storia	parola 1 hiragana	parola 1 kanji	parola 1 signi
 1934	3	共	insieme	Due tizi seppelliti 土土 *insieme* e la loro bara (in prospettiva)	ともに	共に	insieme, nello stesso momento						
 1935	3	供	sottoporre, offrire	Gli uomini 亻, presentano insieme 共 un'*offerta* al tempio	こども	子供	figlio						
 1952	5	円	Cerchio	Lo sportello di una banca 	えん	円	Yen						
+1967	2	冊	Tomo, contatore dei libri	Una pila di libri	いっさつ	一冊	Tre libri						
 1988	3	部	sezione	Devi stare in piedi 立 su una scatola 口 per vedere oltre questa *sezione* della città阝	へや	部屋	camera						
 2029	5	来	venire, prossimo	*Vengo* a casa, sotto il mio tetto 亠 丷 di legno 木	きます	来ます	venire	らいげつ	来月	il prossimo mese	きすぎ	来生	la prossima vita
 2091	4	鳥	uccello	Un *uccello* bianco 白 con una 一 grande coda piumata	とり	鳥	uccello						
 2126	1	免	Scusa 	Imbavagliato 勹 口 e legato ai piedi 儿? Potevi inventare una *scusa* migliore	ごめん	ご免	Mi scuso						
 2128	3	晩	Crepuscolo 	Il sole 日 si scusa 免 e va a dormire	ばんごはん	晩ご飯	Cena						
 2129	4	勉	Sforzo	Goku, non hai scuse 免 per non usare il tuo potere 力! *Sforzati*!	べんきょう	勉強	studio						
-1888	3	横	Di lato, orizzontale	L'albero 木 è diventato tutto giallo 黄 ed è caduto *orizzontale*	よこ	横	Orizzontale						
-1887	2	黄	Giallo	Ho mangiato un fiore 艹 *giallo*, ed è una 一 ragione 由 per cui sono stato malato 8 ハ giorni	きいろい	黄色い	Giallo						
-1408	1	隣	Limitrofo	Il Giappone chiude i confini coi paesi *limitrofi*, tenendosi una pila 阝 di riso 米 per sé, e ballando 舛 per la felicità	となり	隣	Vicino a						
-1967	2	冊	Tomo, contatore dei libri	Una pila di libri	一冊	いっさつ	Tre libri						

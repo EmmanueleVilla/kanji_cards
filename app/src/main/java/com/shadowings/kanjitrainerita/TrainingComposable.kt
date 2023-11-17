@@ -86,7 +86,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Kanji Trainer ITA")
+                    Text(text = "Kanji ${25 - subList.size}/25")
                 },
                 navigationIcon = {
                     Row(Modifier.padding(start = 12.dp)) {
