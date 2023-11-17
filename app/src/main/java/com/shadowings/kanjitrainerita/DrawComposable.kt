@@ -1,6 +1,7 @@
 package com.shadowings.kanjitrainerita
 
 import android.graphics.Bitmap
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -129,19 +130,23 @@ fun DrawComposable() {
         Button(onClick = {
 
             val bitmap = snapShot.invoke()
-            val scaled = Bitmap.createScaledBitmap(bitmap, 256, 256, true)
+            val scaled = Bitmap.createScaledBitmap(bitmap, 512, 512, true)
 
             val model = Model.newInstance(context)
 
             val tensorImage = TensorImage.fromBitmap(scaled)
             val imageProcessor: ImageProcessor = ImageProcessor.Builder()
-                .add(ResizeOp(256, 256, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
+                .add(ResizeOp(512, 512, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
                 .add(TransformToGrayscaleOp())
                 .build()
             val processed = imageProcessor.process(tensorImage)
-
+            val chunked = processed.tensorBuffer.floatArray.toList().chunked(512)
+            for (i in 0..511) {
+                //Log.e("VECNA", chunked[i].map { if (it > 200) 1 else 0 }.joinToString(""))
+            }
             val outputs = model.process(processed.tensorBuffer)
             val probability = outputs.outputFeature0AsTensorBuffer
+            Log.e("VECNA", probability.floatArray.contentToString())
             val intProb = probability.floatArray.map { (it * 100).toInt() }
             val maxProb = intProb.maxOrNull() ?: 0
             val index = intProb.indexOf(maxProb).toString()
