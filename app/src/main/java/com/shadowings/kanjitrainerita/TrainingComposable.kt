@@ -141,12 +141,12 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                         )
                                         if (subList.isEmpty()) {
                                             navController.popBackStack()
+                                        } else {
+                                            currentKanji = subList[0]
+                                            subList = subList.drop(1)
+                                            showAnswer = false
+                                            showHint = false
                                         }
-                                        currentKanji = subList[0]
-                                        subList = subList.drop(1)
-
-                                        showAnswer = false
-                                        showHint = false
                                     }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_smile_very_dissatisfied),
@@ -160,11 +160,12 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                         )
                                         if (subList.isEmpty()) {
                                             navController.popBackStack()
+                                        } else {
+                                            currentKanji = subList[0]
+                                            subList = subList.drop(1)
+                                            showAnswer = false
+                                            showHint = false
                                         }
-                                        currentKanji = subList[0]
-                                        subList = subList.drop(1)
-                                        showAnswer = false
-                                        showHint = false
                                     }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_smile_dissatisfied),
@@ -174,11 +175,12 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                     IconButton(onClick = {
                                         if (subList.isEmpty()) {
                                             navController.popBackStack()
+                                        } else {
+                                            currentKanji = subList[0]
+                                            subList = subList.drop(1)
+                                            showAnswer = false
+                                            showHint = false
                                         }
-                                        currentKanji = subList[0]
-                                        subList = subList.drop(1)
-                                        showAnswer = false
-                                        showHint = false
                                     }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_smile_neutral),
@@ -192,11 +194,12 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                         )
                                         if (subList.isEmpty()) {
                                             navController.popBackStack()
+                                        } else {
+                                            currentKanji = subList[0]
+                                            subList = subList.drop(1)
+                                            showAnswer = false
+                                            showHint = false
                                         }
-                                        currentKanji = subList[0]
-                                        subList = subList.drop(1)
-                                        showAnswer = false
-                                        showHint = false
                                     }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_smile_satisfied),
@@ -212,11 +215,12 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                             )
                                             if (subList.isEmpty()) {
                                                 navController.popBackStack()
+                                            } else {
+                                                currentKanji = subList[0]
+                                                subList = subList.drop(1)
+                                                showAnswer = false
+                                                showHint = false
                                             }
-                                            currentKanji = subList[0]
-                                            subList = subList.drop(1)
-                                            showAnswer = false
-                                            showHint = false
                                         }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_smile_excited),

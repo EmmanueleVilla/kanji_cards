@@ -17,5 +17,8 @@ fun MainComposable(
         composable("training") {
             TrainingComposable(kanjis, navController)
         }
+        composable("test") {
+            DrawComposable()
+        }
     }
 }

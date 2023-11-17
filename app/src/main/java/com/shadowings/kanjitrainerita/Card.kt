@@ -40,7 +40,7 @@ fun KanjiCardPreview() {
                     jlptLevel = 5,
                     kanji = "新",
                     meaning = "Latte",
-                    story = "Nuovo",
+                    story = "Una pila 立 di legna 木 appena tagliata *nuova* con un'ascia 斤",
                     words = listOf(
                         WordInfo(
                             kana = "あたらしい",
