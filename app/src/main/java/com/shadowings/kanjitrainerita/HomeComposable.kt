@@ -103,7 +103,9 @@ fun HomeComposable(kanjis: List<KanjiInfo>, navController: NavHostController) {
                 },
                 actions = {
                     Row(Modifier.padding(end = 12.dp)) {
-                        Icon(Icons.Default.Info, contentDescription = "Info")
+                        IconButton(onClick = { navController.navigate("test") }) {
+                            Icon(Icons.Default.Info, contentDescription = "Info")
+                        }
                     }
                 }
             )
