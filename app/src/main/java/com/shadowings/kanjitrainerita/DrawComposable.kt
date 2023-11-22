@@ -32,12 +32,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.common.reflect.TypeToken
+import com.google.gson.Gson
 import com.shadowings.kanjitrainerita.ml.Model
 import com.smarttoolfactory.gesture.pointerMotionEvents
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.image.ops.TransformToGrayscaleOp
+import java.lang.reflect.Type
+
 
 @Preview
 @Composable
@@ -84,7 +88,7 @@ fun DrawComposable() {
                 modifier = drawModifier
                     .fillMaxWidth()
                     .height(screenWidth - screenWidth / 10)
-                    .background(Color.White)
+                    .background(Color.Black)
             ) {
                 when (motionEvent) {
                     MotionEvent.Down -> {
@@ -114,10 +118,10 @@ fun DrawComposable() {
                 }
 
                 drawPath(
-                    color = Color.Black,
+                    color = Color.White,
                     path = path,
                     style = Stroke(
-                        width = 16.dp.toPx(),
+                        width = 14.dp.toPx(),
                         cap = StrokeCap.Round,
                         join = StrokeJoin.Round
                     )
@@ -136,24 +140,29 @@ fun DrawComposable() {
 
             val tensorImage = TensorImage.fromBitmap(scaled)
             val imageProcessor: ImageProcessor = ImageProcessor.Builder()
-                .add(ResizeOp(512, 512, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
+                .add(ResizeOp(512, 512, ResizeOp.ResizeMethod.BILINEAR))
                 .add(TransformToGrayscaleOp())
                 .build()
             val processed = imageProcessor.process(tensorImage)
-            val chunked = processed.tensorBuffer.floatArray.toList().chunked(512)
-            for (i in 0..511) {
-                //Log.e("VECNA", chunked[i].map { if (it > 200) 1 else 0 }.joinToString(""))
-            }
             val outputs = model.process(processed.tensorBuffer)
-            val probability = outputs.outputFeature0AsTensorBuffer
+            val probability = outputs.probabilityAsTensorBuffer
             Log.e("VECNA", probability.floatArray.contentToString())
             val intProb = probability.floatArray.map { (it * 100).toInt() }
             val maxProb = intProb.maxOrNull() ?: 0
-            val index = intProb.indexOf(maxProb).toString()
+            val index = intProb.indexOf(maxProb)
             model.close()
+
+            val stringList: Type = object : TypeToken<ArrayList<String>>() {}.type
+
+            val kanjiList: ArrayList<String> = Gson().fromJson(
+                context.assets.open("kanji_list.json").bufferedReader().use {
+                    it.readText()
+                }, stringList
+            )
+
             Toast.makeText(
                 context,
-                "Predicted $index with $maxProb% probability",
+                "Predicted ${kanjiList[index]} with $maxProb% probability",
                 Toast.LENGTH_SHORT
             ).show()
         }, modifier = Modifier.padding(8.dp)) {
