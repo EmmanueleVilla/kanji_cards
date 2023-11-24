@@ -24,10 +24,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.google.common.reflect.TypeToken
+import com.google.gson.Gson
+import java.lang.reflect.Type
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,11 +43,12 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
     }
     var showHint by remember { mutableStateOf(false) }
     var showAnswer by remember { mutableStateOf(false) }
-    val mode = remember { mutableStateOf(TrainingMode.Card) }
 
     var selectedList by remember { mutableStateOf(listOf<KanjiInfo>()) }
     var subList by remember { mutableStateOf(listOf<KanjiInfo>()) }
     var currentKanji: KanjiInfo? by remember { mutableStateOf(null) }
+
+    var path by remember { mutableStateOf(Path()) }
 
     val context = LocalContext.current
     val preferencesManager = PreferencesManager(context)
@@ -72,8 +77,36 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
             }
 
             // remove duplicates
-            list = list.distinct().toMutableList()
+            list = list.distinctBy { it.kanji }.take(25).toMutableList()
         }
+
+        val stringList: Type = object : TypeToken<ArrayList<String>>() {}.type
+
+        val kanjiNeuralList: ArrayList<String> = Gson().fromJson(
+            context.assets.open("kanji_list.json").bufferedReader().use {
+                it.readText()
+            }, stringList
+        )
+
+        while (list.size < 30) {
+
+            val kanji = kanjiNeuralList.random()
+            boxes.drop(2).flatMap { it.second }.firstOrNull { it.kanji == kanji }?.let {
+                list.add(it.copy(mode = TrainingMode.Draw))
+            } ?: run {
+                kanjiList.firstOrNull { it.kanji == kanji }?.let {
+                    list.add(it.copy(mode = TrainingMode.Draw))
+                } ?: run {
+                    Log.e("KanjiList", "Kanji not found: $kanji")
+                }
+            }
+
+            list = list.distinctBy { it.kanji }.toMutableList()
+        }
+
+        list = list.shuffled().toMutableList()
+
+        Log.e("KanjiList", list.map { it.mode }.joinToString(",") { it.toString() })
 
         selectedList = list
         subList = list
@@ -86,7 +119,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Kanji ${25 - subList.size}/25")
+                    Text(text = "Kanji ${30 - subList.size}/30")
                 },
                 navigationIcon = {
                     Row(Modifier.padding(start = 12.dp)) {
@@ -97,7 +130,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
         },
         bottomBar = {
             currentKanji?.let { info ->
-                if (mode.value == TrainingMode.Card) {
+                if (info.mode == TrainingMode.Card) {
                     if (!showAnswer) {
                         BottomAppBar(
                             actions = {
@@ -232,6 +265,151 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                         )
                     }
                 }
+                if (info.mode == TrainingMode.Draw) {
+                    if (!showAnswer) {
+                        BottomAppBar(
+                            actions = {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    IconButton(onClick = { }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_fav_empty),
+                                            contentDescription = "Favourite"
+                                        )
+                                    }
+
+                                    IconButton(
+                                        enabled = true,
+                                        onClick = { path = Path() }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_eraser),
+                                            contentDescription = "Hint"
+                                        )
+                                    }
+
+                                    IconButton(
+                                        enabled = !showHint,
+                                        onClick = { showHint = true }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_hint),
+                                            contentDescription = "Hint"
+                                        )
+                                    }
+
+                                    IconButton(onClick = { showAnswer = true }) {
+                                        Icon(
+                                            Icons.Default.Done,
+                                            contentDescription = "Done"
+                                        )
+                                    }
+                                }
+                            })
+                    } else {
+                        BottomAppBar(
+                            actions = {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    IconButton(onClick = {
+                                        preferencesManager.putInt(
+                                            "${info.id}",
+                                            minOf(-2, info.happiness - 2)
+                                        )
+                                        if (subList.isEmpty()) {
+                                            navController.popBackStack()
+                                        } else {
+                                            currentKanji = subList[0]
+                                            subList = subList.drop(1)
+                                            showAnswer = false
+                                            showHint = false
+                                        }
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_very_dissatisfied),
+                                            contentDescription = "very dissatisfied"
+                                        )
+                                    }
+                                    IconButton(onClick = {
+                                        preferencesManager.putInt(
+                                            "${info.id}",
+                                            minOf(-2, info.happiness - 1)
+                                        )
+                                        if (subList.isEmpty()) {
+                                            navController.popBackStack()
+                                        } else {
+                                            currentKanji = subList[0]
+                                            subList = subList.drop(1)
+                                            showAnswer = false
+                                            showHint = false
+                                        }
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_dissatisfied),
+                                            contentDescription = "dissatisfied"
+                                        )
+                                    }
+                                    IconButton(onClick = {
+                                        if (subList.isEmpty()) {
+                                            navController.popBackStack()
+                                        } else {
+                                            currentKanji = subList[0]
+                                            subList = subList.drop(1)
+                                            showAnswer = false
+                                            showHint = false
+                                        }
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_neutral),
+                                            contentDescription = "neutral"
+                                        )
+                                    }
+                                    IconButton(onClick = {
+                                        preferencesManager.putInt(
+                                            "${info.id}",
+                                            maxOf(5, info.happiness + 1)
+                                        )
+                                        if (subList.isEmpty()) {
+                                            navController.popBackStack()
+                                        } else {
+                                            currentKanji = subList[0]
+                                            subList = subList.drop(1)
+                                            showAnswer = false
+                                            showHint = false
+                                        }
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_satisfied),
+                                            contentDescription = "satisfied"
+                                        )
+                                    }
+                                    IconButton(
+                                        enabled = !showHint,
+                                        onClick = {
+                                            preferencesManager.putInt(
+                                                "${info.id}",
+                                                maxOf(5, info.happiness + 2)
+                                            )
+                                            if (subList.isEmpty()) {
+                                                navController.popBackStack()
+                                            } else {
+                                                currentKanji = subList[0]
+                                                subList = subList.drop(1)
+                                                showAnswer = false
+                                                showHint = false
+                                            }
+                                        }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_smile_excited),
+                                            contentDescription = "excited"
+                                        )
+                                    }
+                                }
+                            }
+                        )
+                    }
+                }
+
             }
 
         }
@@ -241,12 +419,30 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            if (currentKanji != null && mode.value == TrainingMode.Card) {
-                KanjiCard(
-                    info = currentKanji!!,
-                    showAnswer = showAnswer,
-                    showHint = showHint
-                )
+            currentKanji?.let {
+                Log.e("KanjiList", it.mode.toString())
+                when (it.mode) {
+                    TrainingMode.Card -> {
+                        KanjiCard(
+                            info = it,
+                            showAnswer = showAnswer,
+                            showHint = showHint
+                        )
+                    }
+
+                    TrainingMode.Draw -> {
+                        DrawComposable(
+                            info = it,
+                            showAnswer = showAnswer,
+                            showHint = showHint,
+                            path = path
+                        )
+                    }
+
+                    else -> {
+                        Text("Mode ${it.mode} not supported")
+                    }
+                }
             }
         }
     }

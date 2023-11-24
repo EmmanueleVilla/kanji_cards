@@ -8,5 +8,6 @@ data class KanjiInfo(
     val story: String,
     val words: List<WordInfo> = listOf(),
     val happiness: Int,
-    val searchString: String = "$kanji $meaning ${words.joinToString { it.kana + it.kanji + it.meaning }}"
+    val searchString: String = "$kanji $meaning ${words.joinToString { it.kana + it.kanji + it.meaning }}",
+    val mode: TrainingMode = TrainingMode.Card
 )
