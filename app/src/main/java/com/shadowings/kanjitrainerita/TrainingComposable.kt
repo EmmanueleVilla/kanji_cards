@@ -130,155 +130,20 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
         },
         bottomBar = {
             currentKanji?.let { info ->
-                if (info.mode == TrainingMode.Card) {
-                    if (!showAnswer) {
-                        BottomAppBar(
-                            actions = {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    IconButton(onClick = { }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_fav_empty),
-                                            contentDescription = "Favourite"
-                                        )
-                                    }
-
-                                    IconButton(
-                                        enabled = !showHint,
-                                        onClick = { showHint = true }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_hint),
-                                            contentDescription = "Hint"
-                                        )
-                                    }
-
-                                    IconButton(onClick = { showAnswer = true }) {
-                                        Icon(
-                                            Icons.Default.Done,
-                                            contentDescription = "Done"
-                                        )
-                                    }
+                if (!showAnswer) {
+                    BottomAppBar(
+                        actions = {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                IconButton(onClick = { }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_fav_empty),
+                                        contentDescription = "Favourite"
+                                    )
                                 }
-                            })
-                    } else {
-                        BottomAppBar(
-                            actions = {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    IconButton(onClick = {
-                                        preferencesManager.putInt(
-                                            "${info.id}",
-                                            minOf(-2, info.happiness - 2)
-                                        )
-                                        if (subList.isEmpty()) {
-                                            navController.popBackStack()
-                                        } else {
-                                            currentKanji = subList[0]
-                                            subList = subList.drop(1)
-                                            showAnswer = false
-                                            showHint = false
-                                        }
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_very_dissatisfied),
-                                            contentDescription = "very dissatisfied"
-                                        )
-                                    }
-                                    IconButton(onClick = {
-                                        preferencesManager.putInt(
-                                            "${info.id}",
-                                            minOf(-2, info.happiness - 1)
-                                        )
-                                        if (subList.isEmpty()) {
-                                            navController.popBackStack()
-                                        } else {
-                                            currentKanji = subList[0]
-                                            subList = subList.drop(1)
-                                            showAnswer = false
-                                            showHint = false
-                                        }
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_dissatisfied),
-                                            contentDescription = "dissatisfied"
-                                        )
-                                    }
-                                    IconButton(onClick = {
-                                        if (subList.isEmpty()) {
-                                            navController.popBackStack()
-                                        } else {
-                                            currentKanji = subList[0]
-                                            subList = subList.drop(1)
-                                            showAnswer = false
-                                            showHint = false
-                                        }
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_neutral),
-                                            contentDescription = "neutral"
-                                        )
-                                    }
-                                    IconButton(onClick = {
-                                        preferencesManager.putInt(
-                                            "${info.id}",
-                                            maxOf(5, info.happiness + 1)
-                                        )
-                                        if (subList.isEmpty()) {
-                                            navController.popBackStack()
-                                        } else {
-                                            currentKanji = subList[0]
-                                            subList = subList.drop(1)
-                                            showAnswer = false
-                                            showHint = false
-                                        }
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_satisfied),
-                                            contentDescription = "satisfied"
-                                        )
-                                    }
-                                    IconButton(
-                                        enabled = !showHint,
-                                        onClick = {
-                                            preferencesManager.putInt(
-                                                "${info.id}",
-                                                maxOf(5, info.happiness + 2)
-                                            )
-                                            if (subList.isEmpty()) {
-                                                navController.popBackStack()
-                                            } else {
-                                                currentKanji = subList[0]
-                                                subList = subList.drop(1)
-                                                showAnswer = false
-                                                showHint = false
-                                            }
-                                        }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_excited),
-                                            contentDescription = "excited"
-                                        )
-                                    }
-                                }
-                            }
-                        )
-                    }
-                }
-                if (info.mode == TrainingMode.Draw) {
-                    if (!showAnswer) {
-                        BottomAppBar(
-                            actions = {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    IconButton(onClick = { }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_fav_empty),
-                                            contentDescription = "Favourite"
-                                        )
-                                    }
 
+                                if (info.mode == TrainingMode.Draw) {
                                     IconButton(
                                         enabled = true,
                                         onClick = { path = Path() }) {
@@ -287,34 +152,45 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                             contentDescription = "Hint"
                                         )
                                     }
-
-                                    IconButton(
-                                        enabled = !showHint,
-                                        onClick = { showHint = true }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_hint),
-                                            contentDescription = "Hint"
-                                        )
-                                    }
-
-                                    IconButton(onClick = { showAnswer = true }) {
-                                        Icon(
-                                            Icons.Default.Done,
-                                            contentDescription = "Done"
-                                        )
-                                    }
                                 }
-                            })
-                    } else {
-                        BottomAppBar(
-                            actions = {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
+
+                                IconButton(
+                                    enabled = !showHint,
+                                    onClick = { showHint = true }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_hint),
+                                        contentDescription = "Hint"
+                                    )
+                                }
+
+                                IconButton(onClick = { showAnswer = true }) {
+                                    Icon(
+                                        Icons.Default.Done,
+                                        contentDescription = "Done"
+                                    )
+                                }
+                            }
+                        })
+                } else {
+
+                    val responses = listOf(
+                        Pair(-2, R.drawable.ic_smile_very_dissatisfied),
+                        Pair(-1, R.drawable.ic_smile_dissatisfied),
+                        Pair(0, R.drawable.ic_smile_neutral),
+                        Pair(1, R.drawable.ic_smile_satisfied),
+                        Pair(2, R.drawable.ic_smile_excited),
+                    )
+
+                    BottomAppBar(
+                        actions = {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                responses.forEach {
                                     IconButton(onClick = {
                                         preferencesManager.putInt(
                                             "${info.id}",
-                                            minOf(-2, info.happiness - 2)
+                                            maxOf(-2, minOf(2, info.happiness + it.first))
                                         )
                                         if (subList.isEmpty()) {
                                             navController.popBackStack()
@@ -323,95 +199,20 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                                             subList = subList.drop(1)
                                             showAnswer = false
                                             showHint = false
+                                            path = Path()
                                         }
                                     }) {
                                         Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_very_dissatisfied),
-                                            contentDescription = "very dissatisfied"
-                                        )
-                                    }
-                                    IconButton(onClick = {
-                                        preferencesManager.putInt(
-                                            "${info.id}",
-                                            minOf(-2, info.happiness - 1)
-                                        )
-                                        if (subList.isEmpty()) {
-                                            navController.popBackStack()
-                                        } else {
-                                            currentKanji = subList[0]
-                                            subList = subList.drop(1)
-                                            showAnswer = false
-                                            showHint = false
-                                        }
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_dissatisfied),
-                                            contentDescription = "dissatisfied"
-                                        )
-                                    }
-                                    IconButton(onClick = {
-                                        if (subList.isEmpty()) {
-                                            navController.popBackStack()
-                                        } else {
-                                            currentKanji = subList[0]
-                                            subList = subList.drop(1)
-                                            showAnswer = false
-                                            showHint = false
-                                        }
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_neutral),
-                                            contentDescription = "neutral"
-                                        )
-                                    }
-                                    IconButton(onClick = {
-                                        preferencesManager.putInt(
-                                            "${info.id}",
-                                            maxOf(5, info.happiness + 1)
-                                        )
-                                        if (subList.isEmpty()) {
-                                            navController.popBackStack()
-                                        } else {
-                                            currentKanji = subList[0]
-                                            subList = subList.drop(1)
-                                            showAnswer = false
-                                            showHint = false
-                                        }
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_satisfied),
-                                            contentDescription = "satisfied"
-                                        )
-                                    }
-                                    IconButton(
-                                        enabled = !showHint,
-                                        onClick = {
-                                            preferencesManager.putInt(
-                                                "${info.id}",
-                                                maxOf(5, info.happiness + 2)
-                                            )
-                                            if (subList.isEmpty()) {
-                                                navController.popBackStack()
-                                            } else {
-                                                currentKanji = subList[0]
-                                                subList = subList.drop(1)
-                                                showAnswer = false
-                                                showHint = false
-                                            }
-                                        }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_smile_excited),
-                                            contentDescription = "excited"
+                                            painter = painterResource(id = it.second),
+                                            contentDescription = it.first.toString()
                                         )
                                     }
                                 }
                             }
-                        )
-                    }
+                        }
+                    )
                 }
-
             }
-
         }
     ) { paddingValues ->
         Box(
@@ -437,10 +238,6 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
                             showHint = showHint,
                             path = path
                         )
-                    }
-
-                    else -> {
-                        Text("Mode ${it.mode} not supported")
                     }
                 }
             }
