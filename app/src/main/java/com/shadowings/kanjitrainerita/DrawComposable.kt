@@ -36,10 +36,8 @@ import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.shadowings.kanjitrainerita.ml.Model
 import com.smarttoolfactory.gesture.pointerMotionEvents
-import org.tensorflow.lite.support.image.ImageProcessor
-import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.image.ops.ResizeOp
-import org.tensorflow.lite.support.image.ops.TransformToGrayscaleOp
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.lang.reflect.Type
 
 
@@ -134,20 +132,19 @@ fun DrawComposable() {
         Button(onClick = {
 
             val bitmap = snapShot.invoke()
-            val scaled = Bitmap.createScaledBitmap(bitmap, 512, 512, true)
+            val scaled = Bitmap.createScaledBitmap(bitmap, 128, 128, false)
 
             val model = Model.newInstance(context)
 
-            val tensorImage = TensorImage.fromBitmap(scaled)
-            val imageProcessor: ImageProcessor = ImageProcessor.Builder()
-                .add(ResizeOp(512, 512, ResizeOp.ResizeMethod.BILINEAR))
-                .add(TransformToGrayscaleOp())
-                .build()
-            val processed = imageProcessor.process(tensorImage)
-            val outputs = model.process(processed.tensorBuffer)
-            val probability = outputs.probabilityAsTensorBuffer
-            Log.e("VECNA", probability.floatArray.contentToString())
-            val intProb = probability.floatArray.map { (it * 100).toInt() }
+            val image = TensorBuffer.createFixedSize(intArrayOf(1, 128, 128, 1), DataType.FLOAT32)
+
+            image.loadBuffer(getGrayscaleBuffer(scaled))
+
+            val outputs = model.process(image)
+            Log.e("outputs", outputs.probabilityAsTensorBuffer.toString())
+            val probability = outputs.probabilityAsTensorBuffer.floatArray
+            Log.e("prob", probability.contentToString())
+            val intProb = probability.map { (it * 100).toInt() }
             val maxProb = intProb.maxOrNull() ?: 0
             val index = intProb.indexOf(maxProb)
             model.close()
@@ -165,6 +162,8 @@ fun DrawComposable() {
                 "Predicted ${kanjiList[index]} with $maxProb% probability",
                 Toast.LENGTH_SHORT
             ).show()
+
+
         }, modifier = Modifier.padding(8.dp)) {
             Text(text = "Classify", fontSize = 18.sp)
         }
