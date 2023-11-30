@@ -56,6 +56,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
     LaunchedEffect(Unit) {
         val boxes = kanjiList.groupBy { it.happiness }.toList().sortedBy { it.first }
         var list = mutableListOf<KanjiInfo>()
+        /*
         while (list.size < 25) {
             try {
                 // take 7 kanjis from the first box
@@ -80,6 +81,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
             list = list.distinctBy { it.kanji }.take(25).toMutableList()
         }
 
+         */
         val stringList: Type = object : TypeToken<ArrayList<String>>() {}.type
 
         val kanjiNeuralList: ArrayList<String> = Gson().fromJson(
@@ -92,7 +94,8 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
 
             val kanji = kanjiNeuralList.random()
             boxes.drop(2).flatMap { it.second }.firstOrNull { it.kanji == kanji }?.let {
-                list.add(it.copy(mode = TrainingMode.Draw))
+                list.add(it.copy(mode = TrainingMode.Draw
+                ))
             } ?: run {
                 kanjiList.firstOrNull { it.kanji == kanji }?.let {
                     list.add(it.copy(mode = TrainingMode.Draw))
