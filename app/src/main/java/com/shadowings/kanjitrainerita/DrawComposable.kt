@@ -2,7 +2,6 @@ package com.shadowings.kanjitrainerita
 
 import android.graphics.Bitmap
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -20,7 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -44,7 +43,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import com.shadowings.kanjitrainerita.ml.Encoder
 import com.shadowings.kanjitrainerita.ml.Model
 import com.shadowings.kanjitrainerita.ui.theme.KanjiTrainerITATheme
 import com.smarttoolfactory.gesture.pointerMotionEvents
@@ -139,16 +138,20 @@ fun DrawComposable(
     val context = LocalContext.current
     val scrollEnabled = remember { mutableStateOf(true) }
 
-    var solutionAccuracy = remember { mutableFloatStateOf(0F) }
+    val solutionAccuracy = remember { mutableFloatStateOf(0F) }
 
-    var firstKanji = remember { mutableStateOf("") }
-    var firstKanjiAccuracy = remember { mutableFloatStateOf(0F) }
+    val firstKanji = remember { mutableStateOf("") }
+    val firstKanjiAccuracy = remember { mutableFloatStateOf(0F) }
 
-    var secondKanji = remember { mutableStateOf("") }
-    var secondKanjiAccuracy = remember { mutableFloatStateOf(0F) }
+    val secondKanji = remember { mutableStateOf("") }
+    val secondKanjiAccuracy = remember { mutableFloatStateOf(0F) }
 
-    var thirdKanji = remember { mutableStateOf("") }
-    var thirdKanjiAccuracy = remember { mutableFloatStateOf(0F) }
+    val thirdKanji = remember { mutableStateOf("") }
+    val thirdKanjiAccuracy = remember { mutableFloatStateOf(0F) }
+
+    val minDistance = remember { mutableFloatStateOf(0F) }
+    val maxDistance = remember { mutableFloatStateOf(0F) }
+    val averageDistance = remember { mutableFloatStateOf(0F) }
 
 
     Column(
@@ -254,6 +257,15 @@ fun DrawComposable(
         LaunchedEffect(showAnswer) {
             if (showAnswer) {
                 val bitmap = snapShot.invoke()
+
+                if (!darkMode) {
+                    for (i in 0 until bitmap.width) {
+                        for (j in 0 until bitmap.height) {
+                            bitmap.setPixel(i, j, bitmap.getPixel(i, j) xor 0x00ffffff)
+                        }
+                    }
+                }
+
                 val scaled = Bitmap.createScaledBitmap(bitmap, 128, 128, false)
 
                 val model = Model.newInstance(context)
@@ -263,9 +275,10 @@ fun DrawComposable(
 
                 image.loadBuffer(getGrayscaleBuffer(scaled))
 
-                val outputs = model.process(image)
+                val classificationOutput = model.process(image)
 
-                val probability = outputs.probabilityAsTensorBuffer.floatArray
+                val classificationProbability =
+                    classificationOutput.probabilityAsTensorBuffer.floatArray
 
                 val stringList: Type = object : TypeToken<ArrayList<String>>() {}.type
 
@@ -276,9 +289,9 @@ fun DrawComposable(
                 )
 
                 val solutionIndex = kanjiList.indexOf(info.kanji)
-                solutionAccuracy.value = probability[solutionIndex]
+                solutionAccuracy.floatValue = classificationProbability[solutionIndex]
 
-                val probabilityList = probability.toMutableList()
+                val probabilityList = classificationProbability.toMutableList()
 
                 var maxIndex = probabilityList.indexOf(probabilityList.maxOrNull())
                 var maxKanji = kanjiList[maxIndex]
@@ -298,11 +311,43 @@ fun DrawComposable(
                 thirdKanjiAccuracy.value = probabilityList[maxIndex]
                 probabilityList[maxIndex] = -1F
 
-
                 model.close()
+
+                val encoder = Encoder.newInstance(context)
+
+                val encoded = encoder.process(image)
+
+                Log.e("Encoded", "size: " + encoded.outputFeature0AsTensorBuffer.floatArray.size)
+                Log.e("Encoded", encoded.outputFeature0AsTensorBuffer.floatArray.joinToString(","))
+
+                // load the info.id.toString().padStart(5, '0').json file from the assets
+                val vectors = context.assets.open("${info.id.toString().padStart(5, '0')}.json")
+                    .bufferedReader().use {
+                        it.readText()
+                    }
+
+                val arrayType = object : TypeToken<List<List<List<Float>>>>() {}.type
+                val tripleArray: List<List<List<Float>>> = Gson().fromJson(vectors, arrayType)
+
+                val distances = mutableListOf<Float>()
+                for (array2D in tripleArray) {
+                    for (array1D in array2D) {
+                        distances.add(
+                            vectorDistance(
+                                array1D,
+                                encoded.outputFeature0AsTensorBuffer.floatArray.toList()
+                            )
+                        )
+                    }
+                }
+
+                minDistance.floatValue = distances.min()
+                maxDistance.floatValue = distances.max()
+                averageDistance.floatValue = distances.average().toFloat()
+
+                encoder.close()
             }
         }
-
         AnimatedVisibility(visible = showAnswer) {
             Column {
                 Spacer(modifier = Modifier.size(16.dp))
@@ -319,7 +364,16 @@ fun DrawComposable(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 4.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
-                        text = "${info.kanji}: ${"%.2f".format(solutionAccuracy.value * 100)}%",
+                        text = "Distance: ${"%.2f".format(minDistance.floatValue)}",
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center,
+                    )
+                    Divider()
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 4.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
+                        text = "${info.kanji}: ${"%.2f".format(solutionAccuracy.floatValue * 100)}%",
                         fontSize = 22.sp,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyMedium.copy(

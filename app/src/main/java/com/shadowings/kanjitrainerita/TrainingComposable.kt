@@ -56,32 +56,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
     LaunchedEffect(Unit) {
         val boxes = kanjiList.groupBy { it.happiness }.toList().sortedBy { it.first }
         var list = mutableListOf<KanjiInfo>()
-        /*
-        while (list.size < 25) {
-            try {
-                // take 7 kanjis from the first box
-                if (boxes.isNotEmpty()) {
-                    list.addAll(boxes[0].second.shuffled().take(7))
-                }
 
-                // take 5 kanjis from the second box
-                if (boxes.size > 1) {
-                    list.addAll(boxes[1].second.shuffled().take(5))
-                }
-
-                // take 1 kanji from the other boxes
-                if (boxes.size > 2) {
-                    list.addAll(boxes.drop(2).flatMap { it.second }.shuffled().take(1))
-                }
-            } catch (e: Exception) {
-                list.add(kanjiList.random())
-            }
-
-            // remove duplicates
-            list = list.distinctBy { it.kanji }.take(25).toMutableList()
-        }
-
-         */
         val stringList: Type = object : TypeToken<ArrayList<String>>() {}.type
 
         val kanjiNeuralList: ArrayList<String> = Gson().fromJson(
@@ -90,6 +65,7 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
             }, stringList
         )
 
+        /*
         while (list.size < 30) {
 
             val kanji = kanjiNeuralList.random()
@@ -106,6 +82,20 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
 
             list = list.distinctBy { it.kanji }.toMutableList()
         }
+         */
+
+        list.add(
+            KanjiInfo(
+                id = 16,
+                jlptLevel = 5,
+                kanji = "古",
+                meaning = "Vecchio",
+                story = "",
+                words = listOf(),
+                happiness = 0,
+                mode = TrainingMode.Draw
+            )
+        )
 
         list = list.shuffled().toMutableList()
 
