@@ -65,13 +65,15 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
             }, stringList
         )
 
-        /*
         while (list.size < 30) {
 
             val kanji = kanjiNeuralList.random()
             boxes.drop(2).flatMap { it.second }.firstOrNull { it.kanji == kanji }?.let {
-                list.add(it.copy(mode = TrainingMode.Draw
-                ))
+                list.add(
+                    it.copy(
+                        mode = TrainingMode.Draw
+                    )
+                )
             } ?: run {
                 kanjiList.firstOrNull { it.kanji == kanji }?.let {
                     list.add(it.copy(mode = TrainingMode.Draw))
@@ -82,20 +84,6 @@ fun TrainingComposable(kanjiList: List<KanjiInfo>, navController: NavHostControl
 
             list = list.distinctBy { it.kanji }.toMutableList()
         }
-         */
-
-        list.add(
-            KanjiInfo(
-                id = 16,
-                jlptLevel = 5,
-                kanji = "古",
-                meaning = "Vecchio",
-                story = "",
-                words = listOf(),
-                happiness = 0,
-                mode = TrainingMode.Draw
-            )
-        )
 
         list = list.shuffled().toMutableList()
 
